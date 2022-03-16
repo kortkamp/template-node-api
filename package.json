@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/src/shared/infra/http/server.js",
+    "typeorm": "MIGRATION=TRUE ts-node-dev -r tsconfig-paths/register  ./node_modules/typeorm/cli.js",
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules ./src/shared/infra/http/server.ts",
     "build": "yarn babel src --extensions \".js,.ts\" --out-dir dist/src --copy-files --no-copy-ignored"
   },
@@ -11,6 +12,7 @@
   "author": "kortkamp <marcelusmedius@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "class-transformer": "^0.5.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
