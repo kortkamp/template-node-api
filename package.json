@@ -15,8 +15,10 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "express-async-errors": "^3.1.1",
+    "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",
     "ts-node-dev": "^1.1.8",
+    "typeorm": "^0.2.45",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

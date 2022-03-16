@@ -5,6 +5,9 @@ import express from 'express';
 import 'express-async-errors';
 import { createServer } from 'http';
 
+import databaseConnection from '@shared/infra/typeorm';
+
+databaseConnection();
 const app = express();
 
 const server = createServer(app);
