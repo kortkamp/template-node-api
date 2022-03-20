@@ -11,7 +11,9 @@ const errorHandling = async (
   response: Response,
   next: NextFunction,
 ): Promise<Response | void> => {
-  console.log(err);
+  if (process.env.NODE_ENV === 'development') {
+    console.log(err);
+  }
   const createLog = container.resolve(CreateErrorLogService);
 
   await createLog.execute({
