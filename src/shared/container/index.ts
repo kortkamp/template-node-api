@@ -6,7 +6,7 @@ import { UsersRepository } from '@modules/users/infra/typeorm/repositories/Users
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import { container } from 'tsyringe';
 
-import { BCryptHashProvider } from './HashProvider/implementation/BCryptHashProvider';
+import { BCryptHashProvider } from './HashProvider/implementations/BCryptHashProvider';
 import { IHashProvider } from './HashProvider/models/IHashProvider';
 
 container.registerSingleton<IUsersRepository>(
