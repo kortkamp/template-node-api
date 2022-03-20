@@ -1,7 +1,8 @@
+import { IRawLog } from '@modules/logs/models/IRawLog';
 import { Entity, Column, CreateDateColumn, ObjectIdColumn } from 'typeorm';
 
 @Entity('raw_logs')
-class RawLog {
+class RawLog implements IRawLog {
   @ObjectIdColumn()
   id: string;
 

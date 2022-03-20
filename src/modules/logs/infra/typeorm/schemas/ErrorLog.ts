@@ -1,3 +1,4 @@
+import { IErrorLog } from '@modules/logs/models/IErrorLog';
 import {
   ObjectIdColumn,
   Entity,
@@ -7,7 +8,7 @@ import {
 } from 'typeorm';
 
 @Entity('error_logs')
-class ErrorLog {
+class ErrorLog implements IErrorLog {
   @ObjectIdColumn()
   id: string;
 
