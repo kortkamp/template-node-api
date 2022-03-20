@@ -5,12 +5,15 @@ export default async (
 ): Promise<Connection> => {
   const defaultOptions = await getConnectionOptions();
 
+  const mongo = await getConnectionOptions('mongo');
+  await createConnection(mongo);
+
   const connection = await createConnection(
     Object.assign(defaultOptions, {
       host: process.env.NODE_ENV === 'test' ? 'localhost' : host,
       database:
         process.env.NODE_ENV === 'test'
-          ? 'modelo_test'
+          ? 'template_test'
           : defaultOptions.database,
     }),
   );
