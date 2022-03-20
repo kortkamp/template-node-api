@@ -1,5 +1,7 @@
+import { CreateErrorLogService } from '@modules/logs/services/CreateErrorLogService';
 import { isCelebrateError, errors } from 'celebrate';
 import { Request, Response, NextFunction } from 'express';
+import { container } from 'tsyringe';
 
 import ErrorsApp from '@shared/errors/ErrorsApp';
 
@@ -10,6 +12,21 @@ const errorHandling = async (
   next: NextFunction,
 ): Promise<Response | void> => {
   console.log(err);
+  const createLog = container.resolve(CreateErrorLogService);
+
+  await createLog.execute({
+    route: request.originalUrl,
+    userId: request.user?.id,
+    requestMethod: request.method,
+    requestBody: request.body,
+    requestQuery: request.query,
+    responseCode: err.statusCode || 500,
+    responseMessage: {
+      success: false,
+      message: err.message || '',
+      error: err,
+    },
+  });
 
   if (err instanceof ErrorsApp) {
     return response
