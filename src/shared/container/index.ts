@@ -6,6 +6,8 @@ import { UsersRepository } from '@modules/users/infra/typeorm/repositories/Users
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import { container } from 'tsyringe';
 
+import '@shared/container/providers';
+
 import { BCryptHashProvider } from './HashProvider/implementations/BCryptHashProvider';
 import { IHashProvider } from './HashProvider/models/IHashProvider';
 
