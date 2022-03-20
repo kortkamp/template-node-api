@@ -18,4 +18,18 @@ const postgres = {
   },
 };
 
-module.exports = [postgres];
+const mongo = {
+  name: 'mongo',
+  type: 'mongodb',
+  host: 'mongodb',
+  authSource: 'admin',
+  database: 'template',
+  useNewUrlParser: true,
+  synchronize: true,
+  logging: true,
+  useUnifiedTopology: true,
+  url: process.env.MONGO_CONNECT,
+  entities: [`./${mainFolder}/modules/**/infra/typeorm/schemas/*{.ts,.js}`],
+};
+
+module.exports = [postgres, mongo];

@@ -13,6 +13,21 @@ services:
       - POSTGRES_PASSWORD=passw
     volumes:
       - pgdata:/data/postgres
+  mongodb:
+    image: mongo
+    command: [--auth]
+    container_name: mongo_template
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=mongopassw
+      - MONGODB_USER=root
+      - MONGODB_PASS=mongopassw
+      - MONGO_INITDB_DATABASE=template
+    volumes:
+      - pgdata:/data/db
   app:
     build: .
     container_name: template_api
@@ -24,8 +39,10 @@ services:
       - .:/usr/app
     links:
       - database_api
+      - mongo_template
     depends_on:
       - database_api
+      - mongo_template
 volumes:
   pgdata:
     driver: local
