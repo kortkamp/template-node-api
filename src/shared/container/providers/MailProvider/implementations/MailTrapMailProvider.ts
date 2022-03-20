@@ -1,6 +1,9 @@
+import { CreateMailErrorLogService } from '@modules/logs/services/CreateMailErrorLogService';
 import nodemailer from 'nodemailer';
+import { container } from 'tsyringe';
 
-import { IMailProvider, ISendMailDTO } from '../models/IMailProvider';
+import { ISendMailDTO } from '../dto/ISendMailDTO';
+import { IMailProvider } from '../models/IMailProvider';
 
 class MailTrapMailProvider implements IMailProvider {
   private transportConfigs = {};
@@ -15,20 +18,26 @@ class MailTrapMailProvider implements IMailProvider {
       },
     };
   }
-  public async sendMail({ from, to, subject, text }: ISendMailDTO) {
+  public async sendMail({ from, to, subject, html }: ISendMailDTO) {
     const transport = nodemailer.createTransport(this.transportConfigs);
 
     const message = {
       from,
       to,
       subject,
-      text,
+      html,
     };
 
     transport.sendMail(message, (err, info) => {
       if (err) {
-        console.log(err);
-      } else {
+        if (process.env.NODE_ENV === 'development') {
+          console.log(err);
+        }
+        const createMailErrorService = container.resolve(
+          CreateMailErrorLogService,
+        );
+        createMailErrorService.execute({ error: err, message });
+      } else if (process.env.NODE_ENV === 'development') {
         console.log(info);
       }
     });

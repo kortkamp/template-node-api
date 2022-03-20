@@ -1,27 +1,38 @@
+import { CreateMailErrorLogService } from '@modules/logs/services/CreateMailErrorLogService';
 import sgMail from '@sendgrid/mail';
+import { container } from 'tsyringe';
 
-import { IMailProvider, ISendMailDTO } from '../models/IMailProvider';
+import { ISendMailDTO } from '../dto/ISendMailDTO';
+import { IMailProvider } from '../models/IMailProvider';
 
 class SendGridMailProvider implements IMailProvider {
   constructor() {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   }
-  public async sendMail({ from, to, subject, text }: ISendMailDTO) {
-    const email = {
+  public async sendMail({ from, to, subject, html }: ISendMailDTO) {
+    const message = {
       to,
       from,
       subject,
-      text,
+      html,
     };
 
     sgMail
-      .send(email)
+      .send(message)
       .then(response => {
-        console.log(response[0].statusCode);
-        console.log(response[0].headers);
+        if (process.env.NODE_ENV === 'development') {
+          console.log(response[0].statusCode);
+          console.log(response[0].headers);
+        }
       })
       .catch(error => {
-        console.error(error);
+        if (process.env.NODE_ENV === 'development') {
+          console.log(error);
+        }
+        const createMailErrorService = container.resolve(
+          CreateMailErrorLogService,
+        );
+        createMailErrorService.execute({ error, message });
       });
   }
 }

@@ -1,12 +1,7 @@
-interface ISendMailDTO {
-  to: string;
-  from: string;
-  subject: string;
-  text: string;
-}
+import { ISendMailDTO } from '../dto/ISendMailDTO';
 
 interface IMailProvider {
   sendMail(data: ISendMailDTO): Promise<void>;
 }
 
-export { IMailProvider, ISendMailDTO };
+export { IMailProvider };
