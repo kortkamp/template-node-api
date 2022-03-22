@@ -42,6 +42,10 @@ class CreateSessionService {
       throw new ErrorsApp('Invalid email/password combination', 403);
     }
 
+    if (!userExists.active) {
+      throw new ErrorsApp('User not active, please contact admin', 403);
+    }
+
     const token = sign({}, authConfig.jwt.secret, {
       subject: userExists.id,
       expiresIn: authConfig.jwt.expiresIn,
