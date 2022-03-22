@@ -2,7 +2,7 @@ interface ICreateUserDTO {
   email: string;
   name: string;
   password: string;
-  active: boolean;
+  active?: boolean;
 }
 
 export { ICreateUserDTO };
