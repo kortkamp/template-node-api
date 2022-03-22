@@ -34,6 +34,10 @@ class ConfirmUserService {
 
     const user = await this.usersRepository.findById(foundToken.user_id);
 
+    if (!user) {
+      throw new ErrorsApp('User not found', 404);
+    }
+
     user.active = true;
 
     await this.usersRepository.save(user);
