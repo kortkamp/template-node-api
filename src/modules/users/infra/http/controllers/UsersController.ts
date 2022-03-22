@@ -1,8 +1,10 @@
 import { ConfirmUserService } from '@modules/users/services/ConfirmUserService';
 import { CreateUserService } from '@modules/users/services/CreateUserService';
+import { DeleteUserService } from '@modules/users/services/DeleteUserService';
 import { ForgotPasswordService } from '@modules/users/services/ForgotPasswordService';
 import { ListUsersService } from '@modules/users/services/ListUsersService';
 import { ResetPasswordService } from '@modules/users/services/ResetPasswordService';
+import { UpdateUserService } from '@modules/users/services/UpdateUserService';
 import { instanceToInstance } from 'class-transformer';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
@@ -22,6 +24,29 @@ class UsersController {
     const user = await createUserService.execute(request.body);
 
     return response.status(201).json(instanceToInstance(user));
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    const updateUserService = container.resolve(UpdateUserService);
+
+    const data = request.body;
+    const userId = request.params.id;
+    const authUserId = request.user.id;
+
+    const user = await updateUserService.execute({ authUserId, data, userId });
+
+    return response.json(instanceToInstance(user));
+  }
+
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const deleteUserService = container.resolve(DeleteUserService);
+
+    const userId = request.params.id;
+    const authUserId = request.user.id;
+
+    await deleteUserService.execute({ userId, authUserId });
+
+    return response.status(204).send();
   }
 
   public async confirm(
