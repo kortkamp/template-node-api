@@ -2,7 +2,7 @@ import { CreateMailErrorLogService } from '@modules/logs/services/CreateMailErro
 import nodemailer from 'nodemailer';
 import { container } from 'tsyringe';
 
-import { ISendMailDTO } from '../dto/ISendMailDTO';
+import { ISendMailDTO } from '../dtos/ISendMailDTO';
 import { IMailProvider } from '../models/IMailProvider';
 
 class MailTrapMailProvider implements IMailProvider {
