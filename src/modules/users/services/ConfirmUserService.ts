@@ -38,7 +38,7 @@ class ConfirmUserService {
 
     await this.usersRepository.save(user);
 
-    await this.userTokensRepository.delete(foundToken.id);
+    await this.userTokensRepository.delete(foundToken.token);
   }
 }
 
