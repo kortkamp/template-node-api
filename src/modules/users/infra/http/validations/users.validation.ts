@@ -27,8 +27,9 @@ export const forgotPasswordValidate = celebrate({
 
 export const resetPasswordValidate = celebrate({
   [Segments.BODY]: {
-    email: Joi.string().email().trim().required(),
     token: Joi.string().uuid().required(),
+    password: Joi.string().required(),
+    password_confirmation: Joi.string().required().valid(Joi.ref('password')),
   },
 });
 
