@@ -5,8 +5,10 @@ import { UsersController } from '../controllers/UsersController';
 import {
   confirmUserValidate,
   createUserValidate,
+  deleteUserValidate,
   forgotPasswordValidate,
   resetPasswordValidate,
+  updateUserValidate,
 } from '../validations/users.validation';
 
 const usersRoutes = Router();
@@ -30,6 +32,10 @@ usersRoutes.post(
 usersRoutes.use(authMiddleware);
 
 usersRoutes.post('/', createUserValidate, usersController.create);
+
+usersRoutes.put('/:id', updateUserValidate, usersController.update);
+
+usersRoutes.delete('/:id', deleteUserValidate, usersController.delete);
 
 usersRoutes.get('/', usersController.index);
 
