@@ -30,7 +30,7 @@ class CreateUserService {
     const emailExists = await this.usersRepository.findByEmail(data.email);
 
     if (emailExists) {
-      throw new ErrorsApp('Email already registered!.', 409);
+      throw new ErrorsApp('Email already registered', 409);
     }
 
     const hashedPassword = await this.hashProvider.create(data.password, 8);
