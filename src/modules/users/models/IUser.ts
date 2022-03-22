@@ -7,6 +7,8 @@ interface IUser {
 
   password: string;
 
+  active: boolean;
+
   created_at: Date;
 
   updated_at: Date;
