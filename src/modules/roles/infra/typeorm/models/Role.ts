@@ -1,4 +1,4 @@
-import { IRole, Permissions } from '@modules/roles/models/IRole';
+import { IRole } from '@modules/roles/models/IRole';
 import {
   Column,
   CreateDateColumn,
@@ -17,10 +17,10 @@ class Role implements IRole {
   name: string;
 
   @Column()
-  usersPermissions: Permissions;
+  usersPermissions: number;
 
   @Column()
-  rolesPermissions: Permissions;
+  rolesPermissions: number;
 
   @CreateDateColumn()
   created_at: Date;

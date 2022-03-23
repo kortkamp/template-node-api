@@ -12,4 +12,6 @@ const rolesController = new RolesController();
 
 rolesRoutes.post('/', createRoleValidate, rolesController.create);
 
+rolesRoutes.get('/', rolesController.index);
+
 export { rolesRoutes };
