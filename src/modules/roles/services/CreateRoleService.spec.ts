@@ -20,8 +20,6 @@ describe('CreateSessionService', () => {
 
     roleData = {
       name: 'User',
-      usersPermissions: 1,
-      rolesPermissions: 1,
     };
   });
 
