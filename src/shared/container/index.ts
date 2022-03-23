@@ -4,13 +4,16 @@ import RawLogsRepository from '@modules/logs/infra/typeorm/repositories/RawLogsR
 import IErrorLogsRepository from '@modules/logs/repositories/IErrorLogsRepository';
 import IMailErrorLogsRepository from '@modules/logs/repositories/IMailErrorLogsRepository';
 import IRawLogsRepository from '@modules/logs/repositories/IRawLogsRepository';
+import { RolesRepository } from '@modules/roles/infra/typeorm/repositories/RolesRepository';
+import { IRolesRepository } from '@modules/roles/repositories/IRolesRepository';
 import { UsersRepository } from '@modules/users/infra/typeorm/repositories/UsersRepository';
 import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import { IUserTokensRepository } from '@modules/users/repositories/IUserTokensRepository';
-import { container } from 'tsyringe';
 
 import '@shared/container/providers';
+
+import { container } from 'tsyringe';
 
 import { BCryptHashProvider } from './HashProvider/implementations/BCryptHashProvider';
 import { IHashProvider } from './HashProvider/models/IHashProvider';
@@ -40,4 +43,9 @@ container.registerSingleton<IRawLogsRepository>(
 container.registerSingleton<IMailErrorLogsRepository>(
   'MailErrorLogsRepository',
   MailErrorLogsRepository,
+);
+
+container.registerSingleton<IRolesRepository>(
+  'RolesRepository',
+  RolesRepository,
 );
