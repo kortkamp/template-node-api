@@ -28,7 +28,7 @@ class RolesRepository implements IRolesRepository {
   }
 
   public async getAll(): Promise<Role[]> {
-    return this.ormRepository.find();
+    return this.ormRepository.find({ relations: ['permissions'] });
   }
 
   public async save(data: Role): Promise<void> {
