@@ -1,16 +1,12 @@
 import { ICreateRoleDTO } from '@modules/roles/dtos/ICreateRoleDTO';
 import { v4 as uuid } from 'uuid';
 
-import { IRole, Permissions } from '../IRole';
+import { IRole } from '../IRole';
 
 class FakeRole implements IRole {
   id: string;
 
   name: string;
-
-  usersPermissions: Permissions;
-
-  rolesPermissions: Permissions;
 
   created_at: Date;
 
