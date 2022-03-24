@@ -12,7 +12,7 @@ let createRolePermissionService: CreateRolePermissionService;
 
 let rolePermissionData: ICreateRolePermissionDTO;
 
-describe('CreateSessionService', () => {
+describe('CreateRolePermissionService', () => {
   beforeEach(() => {
     fakeRolePermissionsRepository = new FakeRolePermissionsRepository();
 

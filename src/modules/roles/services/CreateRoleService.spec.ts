@@ -12,7 +12,7 @@ let createRoleService: CreateRoleService;
 
 let roleData: ICreateRoleDTO;
 
-describe('CreateSessionService', () => {
+describe('CreateRoleService', () => {
   beforeEach(() => {
     fakeRolesRepository = new FakeRolesRepository();
 
