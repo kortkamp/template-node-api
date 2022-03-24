@@ -3,6 +3,8 @@ interface IUser {
 
   name: string;
 
+  role_id: string;
+
   email: string;
 
   password: string;

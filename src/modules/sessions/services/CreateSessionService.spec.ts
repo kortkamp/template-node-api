@@ -25,6 +25,7 @@ describe('CreateSessionService', () => {
   it('Should be able to create a session', async () => {
     const user = await fakeUsersRepository.create({
       email: 'jondoe@gmail.com',
+      role_id: '111',
       name: 'Jon Doe',
       password: '123',
     });
@@ -47,6 +48,7 @@ describe('CreateSessionService', () => {
   it('Should return an error when email or password is incorrect from login', async () => {
     fakeUsersRepository.create({
       email: 'jondoe@gmail.com',
+      role_id: '111',
       name: 'Jon Doe',
       password: '123',
     });
@@ -70,6 +72,7 @@ describe('CreateSessionService', () => {
     const user = await fakeUsersRepository.create({
       email: 'jondoe@gmail.com',
       name: 'Jon Doe',
+      role_id: '111',
       password: '123',
     });
 

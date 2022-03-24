@@ -20,6 +20,7 @@ const userData: ICreateUserDTO = {
   email: 'jondoe@gmail.com',
   name: 'Jon Doe',
   password: '123',
+  role_id: '111',
   active: false,
 };
 

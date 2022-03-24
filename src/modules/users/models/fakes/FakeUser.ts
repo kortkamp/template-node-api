@@ -8,6 +8,8 @@ class FakeUser implements IUser {
 
   name: string;
 
+  role_id: string;
+
   email: string;
 
   active: boolean;

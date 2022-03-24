@@ -24,6 +24,7 @@ describe('ConfirmUser', () => {
     const user = await fakeUsersRepository.create({
       email: 'johndoe@example.com',
       name: 'John Doe',
+      role_id: '111',
       password: '123456',
     });
 
@@ -54,6 +55,7 @@ describe('ConfirmUser', () => {
     const user = await fakeUsersRepository.create({
       email: 'johndoe@example.com',
       name: 'John Doe',
+      role_id: '111',
       password: '123456',
     });
 

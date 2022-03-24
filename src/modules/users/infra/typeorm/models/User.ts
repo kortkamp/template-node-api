@@ -1,3 +1,4 @@
+import { Role } from '@modules/roles/infra/typeorm/models/Role';
 import { IUser } from '@modules/users/models/IUser';
 import { Exclude } from 'class-transformer';
 import {
@@ -6,6 +7,8 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
@@ -19,6 +22,13 @@ class User implements IUser {
 
   @Column('varchar')
   name: string;
+
+  @Column('uuid')
+  role_id: string;
+
+  @ManyToOne(() => Role, role => role)
+  @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
+  role: Role;
 
   @Column('varchar')
   @Exclude()

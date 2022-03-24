@@ -11,6 +11,7 @@ let deleteUserService: DeleteUserService;
 describe('DeleteUser', () => {
   const newUserData = {
     email: 'johndoe@example.com',
+    role_id: '111',
     name: 'John Doe',
     password: '123456',
   };
