@@ -2,7 +2,12 @@ import { authMiddleware } from '@modules/sessions/infra/http/middlewares/authMid
 import { Router } from 'express';
 
 import { RolePermissionsController } from '../controllers/RolePermissionsController';
-import { createRolePermissionValidate } from '../validations/rolePermissions.validation';
+import {
+  createRolePermissionValidate,
+  deleteRolePermissionValidate,
+  showRolePermissionValidate,
+  updateRolePermissionValidate,
+} from '../validations/rolePermissions.validation';
 
 const rolePermissionsRoutes = Router();
 
@@ -14,6 +19,24 @@ rolePermissionsRoutes.post(
   '/',
   createRolePermissionValidate,
   rolePermissionsController.create,
+);
+
+rolePermissionsRoutes.delete(
+  '/:id',
+  deleteRolePermissionValidate,
+  rolePermissionsController.delete,
+);
+
+rolePermissionsRoutes.put(
+  '/:id',
+  updateRolePermissionValidate,
+  rolePermissionsController.update,
+);
+
+rolePermissionsRoutes.get(
+  '/:id',
+  showRolePermissionValidate,
+  rolePermissionsController.show,
 );
 
 rolePermissionsRoutes.get('/', rolePermissionsController.index);
