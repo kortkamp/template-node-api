@@ -28,16 +28,20 @@ class RolesRepository implements IRolesRepository {
   }
 
   public async getAll(): Promise<Role[]> {
-    return this.ormRepository.find({ relations: ['permissions'] });
+    return this.ormRepository.find();
   }
 
   public async save(data: Role): Promise<void> {
     await this.ormRepository.save(data);
   }
 
-  public async findById(id: string): Promise<Role | undefined> {
+  public async findById(
+    id: string,
+    relations?: string[],
+  ): Promise<Role | undefined> {
     const role = await this.ormRepository.findOne({
       where: { id },
+      relations,
     });
 
     return role;
@@ -51,8 +55,8 @@ class RolesRepository implements IRolesRepository {
     return role;
   }
 
-  public async delete(user: Role): Promise<void> {
-    await this.ormRepository.delete(user);
+  public async delete(role: Role): Promise<void> {
+    await this.ormRepository.remove(role);
   }
 }
 

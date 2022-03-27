@@ -4,7 +4,7 @@ import { IRole } from '../models/IRole';
 interface IRolesRepository {
   create(data: ICreateRoleDTO): Promise<IRole>;
   getAll(): Promise<IRole[]>;
-  findById(userId: string): Promise<IRole | undefined>;
+  findById(userId: string, relations?: string[]): Promise<IRole | undefined>;
   findByName(name: string): Promise<IRole | undefined>;
   save(dataUpdate: IRole): Promise<void>;
   delete(user: IRole): Promise<void>;
