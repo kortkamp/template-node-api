@@ -46,7 +46,7 @@ class RolePermissionsRepository implements IRolePermissionsRepository {
   }
 
   public async delete(rolePermission: RolePermission): Promise<void> {
-    await this.ormRepository.delete(rolePermission);
+    await this.ormRepository.remove(rolePermission);
   }
 }
 
