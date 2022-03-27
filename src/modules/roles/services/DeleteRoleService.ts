@@ -4,7 +4,7 @@ import ErrorsApp from '@shared/errors/ErrorsApp';
 
 import { IRolesRepository } from '../repositories/IRolesRepository';
 
-injectable();
+@injectable()
 class DeleteRoleService {
   constructor(
     @inject('RolesRepository')
