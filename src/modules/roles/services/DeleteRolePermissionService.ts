@@ -4,7 +4,7 @@ import ErrorsApp from '@shared/errors/ErrorsApp';
 
 import { IRolePermissionsRepository } from '../repositories/IRolePermissionsRepository';
 
-injectable();
+@injectable()
 class DeleteRolePermissionService {
   constructor(
     @inject('RolePermissionsRepository')
