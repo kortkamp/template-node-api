@@ -16,6 +16,8 @@ const errorHandling = async (
   }
   const createLog = container.resolve(CreateErrorLogService);
 
+  delete request.body?.password;
+
   await createLog.execute({
     route: request.originalUrl,
     userId: request.user?.id,
