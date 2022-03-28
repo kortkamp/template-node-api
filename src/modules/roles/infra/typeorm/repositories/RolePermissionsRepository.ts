@@ -35,11 +35,12 @@ class RolePermissionsRepository implements IRolePermissionsRepository {
     return rolePermission;
   }
 
-  public async findByResource(
+  public async findByRoleResource(
     resource: string,
+    role_id: string,
   ): Promise<RolePermission | undefined> {
     const rolePermission = await this.ormRepository.findOne({
-      where: { resource },
+      where: { resource, role_id },
     });
 
     return rolePermission;

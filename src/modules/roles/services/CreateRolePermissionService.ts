@@ -14,7 +14,10 @@ class CreateRolePermissionService {
 
   public async execute(data: ICreateRolePermissionDTO) {
     const rolePermissionExists =
-      await this.rolePermissionsRepository.findByResource(data.resource);
+      await this.rolePermissionsRepository.findByRoleResource(
+        data.resource,
+        data.role_id,
+      );
 
     if (rolePermissionExists) {
       throw new ErrorsApp(
