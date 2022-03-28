@@ -52,7 +52,7 @@ class UsersRepository implements IUsersRepository {
   }
 
   public async delete(user: User): Promise<void> {
-    await this.ormRepository.delete(user);
+    await this.ormRepository.remove(user);
   }
 }
 
