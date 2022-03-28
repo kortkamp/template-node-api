@@ -46,7 +46,7 @@ class CreateSessionService {
       throw new ErrorsApp('User not active, please contact admin', 403);
     }
 
-    const token = sign({}, authConfig.jwt.secret, {
+    const token = sign({ role: userExists.role_id }, authConfig.jwt.secret, {
       subject: userExists.id,
       expiresIn: authConfig.jwt.expiresIn,
     });

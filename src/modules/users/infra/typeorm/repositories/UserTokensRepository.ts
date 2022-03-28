@@ -40,4 +40,4 @@ class UserTokensRepository implements IUserTokensRepository {
   }
 }
 
-export default UserTokensRepository;
+export { UserTokensRepository };

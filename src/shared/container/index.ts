@@ -9,7 +9,7 @@ import { RolesRepository } from '@modules/roles/infra/typeorm/repositories/Roles
 import { IRolePermissionsRepository } from '@modules/roles/repositories/IRolePermissionsRepository';
 import { IRolesRepository } from '@modules/roles/repositories/IRolesRepository';
 import { UsersRepository } from '@modules/users/infra/typeorm/repositories/UsersRepository';
-import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
+import { UserTokensRepository } from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import { IUserTokensRepository } from '@modules/users/repositories/IUserTokensRepository';
 
