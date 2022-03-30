@@ -14,6 +14,8 @@ class FakeUser implements IUser {
 
   active: boolean;
 
+  avatar: string;
+
   password: string;
 
   created_at: Date;

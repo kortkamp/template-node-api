@@ -11,6 +11,8 @@ interface IUser {
 
   active: boolean;
 
+  avatar?: string;
+
   created_at: Date;
 
   updated_at: Date;

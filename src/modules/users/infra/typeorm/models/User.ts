@@ -37,6 +37,9 @@ class User implements IUser {
   @Column('boolean')
   active: boolean;
 
+  @Column('varchar')
+  avatar?: string;
+
   @CreateDateColumn()
   created_at: Date;
 
