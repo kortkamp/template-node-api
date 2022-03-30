@@ -19,6 +19,8 @@ import { container } from 'tsyringe';
 
 import { BCryptHashProvider } from './HashProvider/implementations/BCryptHashProvider';
 import { IHashProvider } from './HashProvider/models/IHashProvider';
+import DiskStorageProvider from './providers/StorageProvider/implementations/DiskStorageProvider';
+import IStorageProvider from './providers/StorageProvider/models/IStorageProvider';
 
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
@@ -55,4 +57,9 @@ container.registerSingleton<IRolesRepository>(
 container.registerSingleton<IRolePermissionsRepository>(
   'RolePermissionsRepository',
   RolePermissionsRepository,
+);
+
+container.registerSingleton<IStorageProvider>(
+  'StorageProvider',
+  DiskStorageProvider,
 );
