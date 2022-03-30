@@ -12,7 +12,7 @@ class FakeRolePermissionsRepository implements IRolePermissionsRepository {
     return findUser;
   }
 
-  public async findByResource(
+  public async findByRoleResource(
     resource: string,
   ): Promise<IRolePermission | undefined> {
     const rolePermission = this.rolePermissions.find(
