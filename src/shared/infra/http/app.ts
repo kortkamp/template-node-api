@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import 'dotenv/config';
+import upload from '@config/upload';
 import httpLogs from '@modules/logs/infra/http/middlewares/httpLogs';
 import cors from 'cors';
 import express from 'express';
@@ -20,10 +21,17 @@ databaseConnection().then(() => {
   server.emit('database-ready');
 });
 
-if (process.env.HTTP_LOGS !== 'none') app.use(httpLogs);
+if (process.env.HTTP_LOGS !== 'none') {
+  app.use(httpLogs);
+}
 
 app.use(cors());
 app.use(express.json());
+
+if (process.env.STORAGE_DRIVER === 'disk') {
+  console.log(`${upload('avatar').uploadsFolder}/`);
+  app.use('/avatar', express.static(`${upload('avatar').uploadsFolder}/`));
+}
 
 app.use(routes);
 
