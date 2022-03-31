@@ -28,6 +28,12 @@ services:
       - MONGO_INITDB_DATABASE=template
     volumes:
       - pgdata:/data/db
+  redis:
+    image: redis
+    container_name: redis_template
+    restart: always
+    ports:
+      - 6379:6379
   app:
     build: .
     container_name: template_api
@@ -40,9 +46,11 @@ services:
     links:
       - database_api
       - mongo_template
+      - redis_template
     depends_on:
       - database_api
       - mongo_template
+      - redis_template
 volumes:
   pgdata:
     driver: local
