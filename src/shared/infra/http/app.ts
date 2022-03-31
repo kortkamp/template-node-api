@@ -10,6 +10,7 @@ import { createServer } from 'http';
 import databaseConnection from '@shared/infra/typeorm';
 
 import errorHandling from './middlewares/errorHandling';
+import rateLimiter from './middlewares/rateLimiter';
 import { routes } from './routes';
 import '@shared/container';
 
@@ -25,6 +26,7 @@ if (process.env.HTTP_LOGS !== 'none') {
   app.use(httpLogs);
 }
 
+app.use(rateLimiter);
 app.use(cors());
 app.use(express.json());
 
