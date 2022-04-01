@@ -4,12 +4,15 @@ import { resolve } from 'path';
 
 import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 
+import { IDeleteFileDTO } from '../dtos/IDeleteFileDTO';
+import { ISaveFileDTO } from '../dtos/ISaveFileDTO';
+
 class DiskStorageProvider implements IStorageProvider {
-  public async saveFile(
-    tmpFile: string,
-    fileName: string,
-    type: string,
-  ): Promise<string> {
+  public async saveFile({
+    tmpFile,
+    fileName,
+    type,
+  }: ISaveFileDTO): Promise<string> {
     const upConfig = uploadConfig(type);
 
     await fs.promises.rename(
@@ -20,7 +23,7 @@ class DiskStorageProvider implements IStorageProvider {
     return fileName;
   }
 
-  public async deleteFile(file: string, type: string): Promise<void> {
+  public async deleteFile({ file, type }: IDeleteFileDTO): Promise<void> {
     const upConfig = uploadConfig(type);
     const tmpFilePath = resolve(upConfig.tmpFolder, file);
     const filePath = resolve(upConfig.uploadsFolder, file);
