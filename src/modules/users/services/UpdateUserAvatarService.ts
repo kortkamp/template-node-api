@@ -24,17 +24,20 @@ class UpdateUserAvatarService {
     }
 
     if (user.avatar) {
-      await this.storageProvider.deleteFile(user.avatar, 'avatar');
+      await this.storageProvider.deleteFile({
+        file: user.avatar,
+        type: 'avatar',
+      });
     }
 
     const fileExtension = tmpFileName.split('.').slice(-1);
     const fileName = `${user_id}.${fileExtension}`;
 
-    const filename = await this.storageProvider.saveFile(
-      tmpFileName,
+    const filename = await this.storageProvider.saveFile({
+      tmpFile: tmpFileName,
       fileName,
-      'avatar',
-    );
+      type: 'avatar',
+    });
 
     user.avatar = filename;
 
