@@ -43,12 +43,16 @@ class UsersRepository implements IUsersRepository {
     await this.ormRepository.save(data);
   }
 
-  public async findById(id: string): Promise<User | undefined> {
-    const findUser = await this.ormRepository.findOne({
+  public async findById(
+    id: string,
+    relations?: string[],
+  ): Promise<User | undefined> {
+    const user = await this.ormRepository.findOne({
       where: { id },
+      relations,
     });
 
-    return findUser;
+    return user;
   }
 
   public async delete(user: User): Promise<void> {
