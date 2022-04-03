@@ -58,7 +58,7 @@ class UpdateUserService {
 
       const hashedPassword = await this.hashProvider.create(data.password, 8);
 
-      Object.assign(data, { password: hashedPassword, active: false });
+      Object.assign(data, { password: hashedPassword });
     }
 
     Object.assign(user, data);
