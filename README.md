@@ -2,13 +2,14 @@
  Base template API to quick start api projects
 
 ## :sparkles: Features
-* Basic users module with email activation, avatar, jwt authorization middleware.
-* Persistence with PostgreSQL
+* Basic users module with email activation, avatar, jwt authorization middleware;
+* Persistence with PostgreSQL;
 * Storage provider;
 * Mail provider;
 * Logs system;
-* Connections rate limiter middleware for DDoS protection. 
-* Dynamic role-permissions system.
+* Connections rate limiter middleware for DDoS protection;
+* Dynamic role-permissions system;
+* Decent unit tests coverage;
 
 ## :wrench: Installation
 You need [Git](https://git-scm.com/), [Node.js](https://nodejs.org/), [Yarn](https://yarnpkg.com/), [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) in order to run the project.
