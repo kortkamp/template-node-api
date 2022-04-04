@@ -12,12 +12,7 @@ let fakeMailProvider: FakeMailProvider;
 let fakeUserTokensRepository: FakeUserTokensRepository;
 let forgotPasswordService: ForgotPasswordService;
 
-const userData = {
-  email: 'johndoe@example.com',
-  name: 'John Doe',
-  password: '123456',
-  role_id: '111111',
-};
+const userData = new FakeUser();
 
 describe('ForgotPasswordService', () => {
   beforeEach(() => {

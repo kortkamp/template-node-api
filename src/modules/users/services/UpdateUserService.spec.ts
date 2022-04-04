@@ -3,6 +3,7 @@ import 'reflect-metadata';
 import { FakeHashProvider } from '@shared/container/HashProvider/fakes/FakeHashProvider';
 import ErrorsApp from '@shared/errors/ErrorsApp';
 
+import { FakeUser } from '../models/fakes/FakeUser';
 import { IUser } from '../models/IUser';
 import FakeUsersRepository from '../repositories/fakes/FakeUserRepository';
 import { UpdateUserService } from './UpdateUserService';
@@ -11,27 +12,9 @@ let fakeUsersRepository: FakeUsersRepository;
 let fakeHashProvider: FakeHashProvider;
 let updateUser: UpdateUserService;
 
-const userData = {
-  email: 'user@example.com',
-  name: 'John Doe',
-  password: '123456',
-  role_id: '000000',
-  active: true,
-};
-const anotherUserData = {
-  email: 'anotheruser@example.com',
-  name: 'Another User',
-  role_id: '000000',
-  password: '123456',
-  active: true,
-};
-const adminData = {
-  email: 'admin@example.com',
-  name: 'admin',
-  role_id: '000000',
-  password: 'admin',
-  active: true,
-};
+const userData = new FakeUser({ active: true });
+const anotherUserData = new FakeUser({ active: true });
+const adminData = new FakeUser({ active: true });
 
 let user: IUser;
 let anotherUser: IUser;
@@ -44,10 +27,10 @@ describe('UpdateUser', () => {
 
     updateUser = new UpdateUserService(fakeUsersRepository, fakeHashProvider);
 
-    const adminHashPassword = await fakeHashProvider.create(
-      adminData.password,
-      8,
-    );
+    // const adminHashPassword = await fakeHashProvider.create(
+    //   adminData.password,
+    //   8,
+    // );
     const userHashPassword = await fakeHashProvider.create(
       userData.password,
       8,
@@ -56,10 +39,10 @@ describe('UpdateUser', () => {
       anotherUserData.password,
       8,
     );
-    admin = await fakeUsersRepository.create({
-      ...adminData,
-      password: adminHashPassword,
-    });
+    // admin = await fakeUsersRepository.create({
+    //   ...adminData,
+    //   password: adminHashPassword,
+    // });
     user = await fakeUsersRepository.create({
       ...userData,
       password: userHashPassword,

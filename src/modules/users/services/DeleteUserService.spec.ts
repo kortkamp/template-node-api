@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import FakeStorageProvider from '@shared/container/providers/StorageProvider/fake/FakeStorageProvider';
 import ErrorsApp from '@shared/errors/ErrorsApp';
 
+import { FakeUser } from '../models/fakes/FakeUser';
 import { IUser } from '../models/IUser';
 import FakeUsersRepository from '../repositories/fakes/FakeUserRepository';
 import { DeleteUserService } from './DeleteUserService';
@@ -14,12 +15,7 @@ let deleteUserService: DeleteUserService;
 let updateUserAvatar: UpdateUserAvatarService;
 
 describe('DeleteUser', () => {
-  const newUserData = {
-    email: 'johndoe@example.com',
-    role_id: '111',
-    name: 'John Doe',
-    password: '123456',
-  };
+  const newUserData = new FakeUser();
 
   let user: IUser;
 

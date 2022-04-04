@@ -5,6 +5,7 @@ import { IMailProvider } from '@shared/container/providers/MailProvider/models/I
 import ErrorsApp from '@shared/errors/ErrorsApp';
 
 import { ICreateUserDTO } from '../dtos/ICreateUserDTO';
+import { FakeUser } from '../models/fakes/FakeUser';
 import FakeUsersRepository from '../repositories/fakes/FakeUserRepository';
 import FakeUserTokensRepository from '../repositories/fakes/FakeUserTokensRepository';
 import { IUserTokensRepository } from '../repositories/IUserTokensRepository';
@@ -16,13 +17,7 @@ let fakeUsersRepository: FakeUsersRepository;
 let fakeMailProvider: IMailProvider;
 let fakeUserTokensRepository: IUserTokensRepository;
 
-const userData: ICreateUserDTO = {
-  email: 'jondoe@gmail.com',
-  name: 'Jon Doe',
-  password: '123',
-  role_id: '111',
-  active: false,
-};
+const userData: ICreateUserDTO = new FakeUser();
 
 describe('CreateUserService', () => {
   beforeEach(() => {

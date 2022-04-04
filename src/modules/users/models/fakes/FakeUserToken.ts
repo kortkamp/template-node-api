@@ -9,9 +9,7 @@ class FakeUserToken implements IUserToken {
   created_at: Date;
   updated_at: Date;
 
-  constructor(
-    data: Omit<FakeUserToken, 'id' | 'token' | 'created_at' | 'updated_at'>,
-  ) {
+  constructor(data: Partial<IUserToken>) {
     this.id = uuid();
     this.token = uuid();
     Object.assign(this, data);

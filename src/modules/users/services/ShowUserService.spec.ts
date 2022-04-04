@@ -2,6 +2,7 @@ import 'reflect-metadata';
 
 import ErrorsApp from '@shared/errors/ErrorsApp';
 
+import { FakeUser } from '../models/fakes/FakeUser';
 import FakeUsersRepository from '../repositories/fakes/FakeUserRepository';
 import { ShowUserService } from './ShowUserService';
 
@@ -16,19 +17,15 @@ describe('ShowUser', () => {
   });
 
   it('should be able to find one user by id', async () => {
-    const user = fakeUsersRepository.create({
-      email: 'johndoe@example.com',
-      role_id: '111',
-      name: 'John Doe',
-      password: '123456',
+    const userData = await fakeUsersRepository.create(new FakeUser());
+
+    const user = await showUser.execute({
+      userId: userData.id,
+      authUser: { id: userData.id, role: 'admin' },
     });
 
-    const userId = (await user).id;
-
-    await showUser.execute({ userId, authUser: { id: userId, role: 'admin' } });
-
-    expect((await user).email).toBe('johndoe@example.com');
-    expect((await user).password).toBe('123456');
+    expect(user.email).toBe(userData.email);
+    expect(user.name).toBe(userData.name);
   });
 
   it('should not find a non-existing user', async () => {

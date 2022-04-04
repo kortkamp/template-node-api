@@ -5,6 +5,7 @@ import { ResetPasswordService } from '@modules/users/services/ResetPasswordServi
 import { FakeHashProvider } from '@shared/container/HashProvider/fakes/FakeHashProvider';
 import ErrorsApp from '@shared/errors/ErrorsApp';
 
+import { FakeUser } from '../models/fakes/FakeUser';
 import FakeUsersRepository from '../repositories/fakes/FakeUserRepository';
 
 let fakeUsersRepository: FakeUsersRepository;
@@ -26,12 +27,7 @@ describe('ResetPassword', () => {
   });
 
   it('Should be able to reset the password', async () => {
-    const user = await fakeUsersRepository.create({
-      name: 'A User',
-      email: 'user@user.com',
-      role_id: '1111',
-      password: '123456',
-    });
+    const user = await fakeUsersRepository.create(new FakeUser());
 
     const { token } = await fakeUserTokensRepository.generate(user.id);
 
@@ -62,12 +58,7 @@ describe('ResetPassword', () => {
   });
 
   it('Should not be able to reset password if passed more than 2 hours', async () => {
-    const user = await fakeUsersRepository.create({
-      name: 'A User',
-      email: 'user@user.com',
-      password: '123456',
-      role_id: '1111',
-    });
+    const user = await fakeUsersRepository.create(new FakeUser());
 
     const { token } = await fakeUserTokensRepository.generate(user.id);
 

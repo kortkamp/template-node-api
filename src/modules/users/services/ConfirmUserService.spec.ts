@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import ErrorsApp from '@shared/errors/ErrorsApp';
 
+import { FakeUser } from '../models/fakes/FakeUser';
 import FakeUsersRepository from '../repositories/fakes/FakeUserRepository';
 import FakeUserTokensRepository from '../repositories/fakes/FakeUserTokensRepository';
 import { ConfirmUserService } from './ConfirmUserService';
@@ -21,12 +22,7 @@ describe('ConfirmUser', () => {
   });
 
   it('should be able to confirm user', async () => {
-    const user = await fakeUsersRepository.create({
-      email: 'johndoe@example.com',
-      name: 'John Doe',
-      role_id: '111',
-      password: '123456',
-    });
+    const user = await fakeUsersRepository.create(new FakeUser());
 
     const { token } = await fakeUserTokensRepository.generate(user.id);
 
@@ -52,12 +48,7 @@ describe('ConfirmUser', () => {
   });
 
   it('should not be able to activate user if passed more than 24 hours', async () => {
-    const user = await fakeUsersRepository.create({
-      email: 'johndoe@example.com',
-      name: 'John Doe',
-      role_id: '111',
-      password: '123456',
-    });
+    const user = await fakeUsersRepository.create(new FakeUser());
 
     const { token } = await fakeUserTokensRepository.generate(user.id);
 

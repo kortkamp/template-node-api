@@ -4,6 +4,7 @@ import { UpdateUserAvatarService } from '@modules/users/services/UpdateUserAvata
 import FakeStorageProvider from '@shared/container/providers/StorageProvider/fake/FakeStorageProvider';
 import ErrorsApp from '@shared/errors/ErrorsApp';
 
+import { FakeUser } from '../models/fakes/FakeUser';
 import FakeUsersRepository from '../repositories/fakes/FakeUserRepository';
 
 let fakeUsersRepository: FakeUsersRepository;
@@ -22,12 +23,7 @@ describe('UpdateUserAvatar', () => {
   });
 
   it('Should be able to update the user avatar', async () => {
-    const user = await fakeUsersRepository.create({
-      name: 'A User',
-      email: 'user@user.com',
-      password: '123456',
-      role_id: '1111',
-    });
+    const user = await fakeUsersRepository.create(new FakeUser());
 
     const updateAvatarResult = await updateUserAvatar.execute({
       user_id: user.id,
@@ -40,12 +36,7 @@ describe('UpdateUserAvatar', () => {
   it('Should delete old avatar before add new', async () => {
     const deleteFile = jest.spyOn(fakeStorageProvider, 'deleteFile');
 
-    const user = await fakeUsersRepository.create({
-      name: 'A User',
-      email: 'user@user.com',
-      password: '123456',
-      role_id: '1111',
-    });
+    const user = await fakeUsersRepository.create(new FakeUser());
 
     await updateUserAvatar.execute({
       user_id: user.id,

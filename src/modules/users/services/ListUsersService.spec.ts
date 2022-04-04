@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import { FakeUser } from '../models/fakes/FakeUser';
 import FakeUsersRepository from '../repositories/fakes/FakeUserRepository';
 import { ListUsersService } from './ListUsersService';
 
@@ -13,19 +14,9 @@ describe('ListUsers', () => {
   });
 
   it('should be able to list users', async () => {
-    const user1 = await fakeUsersRepository.create({
-      email: 'johndoe@example.com',
-      name: 'John Doe',
-      role_id: '1111',
-      password: '123456',
-    });
+    const user1 = await fakeUsersRepository.create(new FakeUser());
 
-    const user2 = await fakeUsersRepository.create({
-      email: 'johntre@example.com',
-      name: 'John Tre',
-      role_id: '2222',
-      password: '123456',
-    });
+    const user2 = await fakeUsersRepository.create(new FakeUser());
 
     const allUsers = await listUsers.execute();
 
