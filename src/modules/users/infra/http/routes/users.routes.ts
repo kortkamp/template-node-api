@@ -3,14 +3,12 @@ import { authMiddleware } from '@modules/sessions/infra/http/middlewares/authMid
 import { Router } from 'express';
 import multer from 'multer';
 
+import { paramsIdValidate } from '@shared/infra/http/validations/default.validation';
+
 import { UserAvatarController } from '../controllers/UserAvatarController';
 import { UsersController } from '../controllers/UsersController';
 import {
-  confirmUserValidate,
   createUserValidate,
-  deleteUserValidate,
-  forgotPasswordValidate,
-  resetPasswordValidate,
   updateUserValidate,
 } from '../validations/users.validation';
 
@@ -24,27 +22,15 @@ const uploadAvatar = uploadConfig('avatar');
 
 const upload = multer(uploadAvatar.multer);
 
-usersRoutes.get('/confirm', confirmUserValidate, usersController.confirm);
-
-usersRoutes.post(
-  '/forgot-password',
-  forgotPasswordValidate,
-  usersController.forgotPassword,
-);
-
-usersRoutes.post(
-  '/reset-password',
-  resetPasswordValidate,
-  usersController.resetPassword,
-);
-
 usersRoutes.use(authMiddleware);
 
 usersRoutes.post('/', createUserValidate, usersController.create);
 
 usersRoutes.put('/:id', updateUserValidate, usersController.update);
 
-usersRoutes.delete('/:id', deleteUserValidate, usersController.delete);
+usersRoutes.delete('/:id', paramsIdValidate, usersController.delete);
+
+usersRoutes.get('/:id', paramsIdValidate, usersController.show);
 
 usersRoutes.get('/', usersController.index);
 
