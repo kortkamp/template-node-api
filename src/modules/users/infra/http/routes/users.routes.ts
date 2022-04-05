@@ -1,4 +1,6 @@
 import uploadConfig from '@config/upload';
+import { ensureRoles } from '@modules/roles/infra/http/middlewares/ensureRoles';
+import { ensureRolesOrSelf } from '@modules/roles/infra/http/middlewares/ensureRolesOrSelf';
 import { authMiddleware } from '@modules/sessions/infra/http/middlewares/authMiddleware';
 import { Router } from 'express';
 import multer from 'multer';
@@ -27,13 +29,33 @@ usersRoutes.use(authMiddleware);
 
 usersRoutes.post('/', createUserValidate, usersController.create);
 
-usersRoutes.put('/:id', updateUserValidate, usersController.update);
+usersRoutes.put(
+  '/:id',
+  ensureRolesOrSelf(['admin']),
+  updateUserValidate,
+  usersController.update,
+);
 
-usersRoutes.delete('/:id', paramsIdValidate, usersController.delete);
+usersRoutes.delete(
+  '/:id',
+  ensureRolesOrSelf(['admin']),
+  paramsIdValidate,
+  usersController.delete,
+);
 
-usersRoutes.get('/:id', paramsIdValidate, usersController.show);
+usersRoutes.get(
+  '/:id',
+  ensureRolesOrSelf(['admin']),
+  paramsIdValidate,
+  usersController.show,
+);
 
-usersRoutes.get('/', filtersQueryValidate, usersController.index);
+usersRoutes.get(
+  '/',
+  ensureRoles(['admin']),
+  filtersQueryValidate,
+  usersController.index,
+);
 
 usersRoutes.patch(
   '/avatar',
