@@ -1,3 +1,5 @@
+import { parseQueryFilters } from '@shared/helpers/filter/parsers/parseQueryFilters';
+
 import 'reflect-metadata';
 import { FakeUser } from '../models/fakes/FakeUser';
 import FakeUsersRepository from '../repositories/fakes/FakeUserRepository';
@@ -18,8 +20,8 @@ describe('ListUsers', () => {
 
     const user2 = await fakeUsersRepository.create(new FakeUser());
 
-    const allUsers = await listUsers.execute();
+    const { result } = await listUsers.execute(parseQueryFilters({}));
 
-    expect(allUsers).toEqual([user1, user2]);
+    expect(result).toEqual([user1, user2]);
   });
 });

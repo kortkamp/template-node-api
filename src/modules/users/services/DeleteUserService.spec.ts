@@ -38,6 +38,9 @@ describe('DeleteUser', () => {
       authUserId: user.id,
     });
 
+    const totalUsers = await fakeUsersRepository.getTotal();
+
+    expect(totalUsers).toBe(0);
     expect(deletedUser).toBeUndefined();
   });
 
@@ -68,9 +71,6 @@ describe('DeleteUser', () => {
       authUserId: user.id,
     });
 
-    const listLength = await fakeUsersRepository.getAll();
-
-    expect(listLength).toHaveLength(0);
     expect(deleteFile).toBeCalledWith({
       file: `${user.id}.jpg`,
       type: 'avatar',
