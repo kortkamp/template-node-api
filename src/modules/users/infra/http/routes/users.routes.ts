@@ -3,6 +3,7 @@ import { authMiddleware } from '@modules/sessions/infra/http/middlewares/authMid
 import { Router } from 'express';
 import multer from 'multer';
 
+import { filtersQueryValidate } from '@shared/helpers/filter/validations/filter.validation';
 import { paramsIdValidate } from '@shared/infra/http/validations/default.validation';
 
 import { UserAvatarController } from '../controllers/UserAvatarController';
@@ -32,7 +33,7 @@ usersRoutes.delete('/:id', paramsIdValidate, usersController.delete);
 
 usersRoutes.get('/:id', paramsIdValidate, usersController.show);
 
-usersRoutes.get('/', usersController.index);
+usersRoutes.get('/', filtersQueryValidate, usersController.index);
 
 usersRoutes.patch(
   '/avatar',

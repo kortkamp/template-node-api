@@ -7,11 +7,13 @@ import { instanceToInstance } from 'class-transformer';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
+import { parseQueryFilters } from '@shared/helpers/filter/parsers/parseQueryFilters';
+
 class UsersController {
   public async index(request: Request, response: Response): Promise<Response> {
     const listUsers = container.resolve(ListUsersService);
 
-    const users = await listUsers.execute();
+    const users = await listUsers.execute(parseQueryFilters(request.query));
 
     return response.json(instanceToInstance(users));
   }

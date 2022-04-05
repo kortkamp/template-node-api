@@ -2,6 +2,10 @@ import { ICreateUserDTO } from '@modules/users/dtos/ICreateUserDTO';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import { getRepository, Repository } from 'typeorm';
 
+import FilterBuilder, {
+  IFilterQuery,
+} from '@shared/helpers/filter/typeorm/FilterBuilder';
+
 import { User } from '../models/User';
 
 class UsersRepository implements IUsersRepository {
@@ -12,11 +16,9 @@ class UsersRepository implements IUsersRepository {
   }
 
   public async getTotal(): Promise<number> {
-    const result = await this.ormRepository.query(
-      'SELECT count(users.id) as total FROM users ',
-    );
+    const total = await this.ormRepository.count();
 
-    return result[0].total;
+    return total;
   }
 
   public async create(data: ICreateUserDTO): Promise<User> {
@@ -27,8 +29,18 @@ class UsersRepository implements IUsersRepository {
     return newUser;
   }
 
-  public async getAll(): Promise<User[]> {
-    return this.ormRepository.find();
+  public async getAll(query: IFilterQuery): Promise<[User[], number]> {
+    const filterQueryBuilder = new FilterBuilder(
+      this.ormRepository,
+      query,
+      'user',
+    );
+
+    const queryBuilder = filterQueryBuilder.build();
+
+    const result = await queryBuilder.getManyAndCount();
+
+    return result;
   }
 
   public async findByEmail(email: string): Promise<User | undefined> {

@@ -32,8 +32,8 @@ class FakeUsersRepository implements IUsersRepository {
     return user;
   }
 
-  public async getAll(): Promise<IUser[]> {
-    return this.users;
+  public async getAll(): Promise<[IUser[], number]> {
+    return [this.users, this.users.length];
   }
 
   public async getTotal(): Promise<number> {

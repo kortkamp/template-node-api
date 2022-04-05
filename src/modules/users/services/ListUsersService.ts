@@ -1,6 +1,8 @@
 import { injectable, inject } from 'tsyringe';
 
-import { IUser } from '../models/IUser';
+import { IListResultInterface } from '@shared/dtos/IListResultDTO';
+import { IFilterQuery } from '@shared/helpers/filter/typeorm/FilterBuilder';
+
 import { IUsersRepository } from '../repositories/IUsersRepository';
 
 @injectable()
@@ -10,10 +12,20 @@ class ListUsersService {
     private usersRepository: IUsersRepository,
   ) {}
 
-  public async execute(): Promise<IUser[]> {
-    const users = await this.usersRepository.getAll();
+  public async execute(query: IFilterQuery): Promise<IListResultInterface> {
+    const { page, per_page } = query;
+    const [users, length] = await this.usersRepository.getAll(query);
 
-    return users;
+    const total = await this.usersRepository.getTotal();
+
+    return {
+      result: users,
+      total_registers: total,
+      total_filtered: length,
+      page,
+      per_page,
+      total_pages: Math.ceil(length / per_page),
+    };
   }
 }
 
