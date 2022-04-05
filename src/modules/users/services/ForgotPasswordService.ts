@@ -3,7 +3,6 @@ import { injectable, inject } from 'tsyringe';
 
 import { IMailProvider } from '@shared/container/providers/MailProvider/models/IMailProvider';
 import IMailTemplateProvider from '@shared/container/providers/MailTemplateProvider/models/IMailTemplateProvider';
-import { getForgotPasswordTemplateFileContent } from '@shared/container/providers/MailTemplateProvider/utils/templateFiles';
 import ErrorsApp from '@shared/errors/ErrorsApp';
 
 import { IUser } from '../models/IUser';
