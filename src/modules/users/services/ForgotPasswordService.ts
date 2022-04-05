@@ -1,7 +1,9 @@
-import { SendForgotPasswordMailService } from '@modules/mails/services/SendForgotPasswordMailService';
+import path from 'path';
 import { injectable, inject } from 'tsyringe';
 
 import { IMailProvider } from '@shared/container/providers/MailProvider/models/IMailProvider';
+import IMailTemplateProvider from '@shared/container/providers/MailTemplateProvider/models/IMailTemplateProvider';
+import { getForgotPasswordTemplateFileContent } from '@shared/container/providers/MailTemplateProvider/utils/templateFiles';
 import ErrorsApp from '@shared/errors/ErrorsApp';
 
 import { IUser } from '../models/IUser';
@@ -19,6 +21,9 @@ class ForgotPasswordService {
 
     @inject('MailProvider')
     private mailProvider: IMailProvider,
+
+    @inject('MailTemplateProvider')
+    private mailTemplateProvider: IMailTemplateProvider,
   ) {}
 
   public async execute(email: string): Promise<IUser> {
@@ -30,14 +35,28 @@ class ForgotPasswordService {
 
     const userToken = await this.userTokensRepository.generate(user.id);
 
-    const sendForgotPasswordMailService = new SendForgotPasswordMailService(
-      this.mailProvider,
+    const templateFile = path.resolve(
+      __dirname,
+      '..',
+      'views',
+      'forgot_password.hbs',
     );
 
-    await sendForgotPasswordMailService.execute({
-      email,
-      token: userToken.token,
+    const link = `${process.env.RESET_PASSWORD_URL}${userToken.token}`;
+
+    const templateHTML = await this.mailTemplateProvider.parse({
+      file: templateFile,
+      variables: { link },
     });
+
+    const message = {
+      to: email,
+      from: 'Template API <no-reply@template.com>',
+      subject: 'Forgot Template API Password',
+      html: templateHTML,
+    };
+
+    await this.mailProvider.sendMail(message);
 
     return user;
   }

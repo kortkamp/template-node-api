@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import { FakeMailProvider } from '@shared/container/providers/MailProvider/fake/FakeMailProvider';
+import FakeMailTemplateProvider from '@shared/container/providers/MailTemplateProvider/fake/FakeMailTemplateProvider';
 import ErrorsApp from '@shared/errors/ErrorsApp';
 
 import { FakeUser } from '../models/fakes/FakeUser';
@@ -11,6 +12,7 @@ let fakeUsersRepository: FakeUsersRepository;
 let fakeMailProvider: FakeMailProvider;
 let fakeUserTokensRepository: FakeUserTokensRepository;
 let forgotPasswordService: ForgotPasswordService;
+let fakeMailTemplateProvider: FakeMailTemplateProvider;
 
 const userData = new FakeUser();
 
@@ -19,11 +21,13 @@ describe('ForgotPasswordService', () => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeMailProvider = new FakeMailProvider();
     fakeUserTokensRepository = new FakeUserTokensRepository();
+    fakeMailTemplateProvider = new FakeMailTemplateProvider();
 
     forgotPasswordService = new ForgotPasswordService(
       fakeUsersRepository,
       fakeUserTokensRepository,
       fakeMailProvider,
+      fakeMailTemplateProvider,
     );
   });
 
