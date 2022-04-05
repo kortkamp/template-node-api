@@ -5,7 +5,7 @@ import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import { sign } from 'jsonwebtoken';
 import { inject, injectable } from 'tsyringe';
 
-import { IHashProvider } from '@shared/container/HashProvider/models/IHashProvider';
+import { IHashProvider } from '@shared/container/providers/HashProvider/models/IHashProvider';
 import ErrorsApp from '@shared/errors/ErrorsApp';
 
 import { ICreateSessionDTO } from '../dtos/ICreateSessionDTO';

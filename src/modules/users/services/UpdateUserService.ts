@@ -1,7 +1,7 @@
 import { ICreateUserDTO } from '@modules/users/dtos/ICreateUserDTO';
 import { injectable, inject } from 'tsyringe';
 
-import { IHashProvider } from '@shared/container/HashProvider/models/IHashProvider';
+import { IHashProvider } from '@shared/container/providers/HashProvider/models/IHashProvider';
 import ErrorsApp from '@shared/errors/ErrorsApp';
 
 import { IUser } from '../models/IUser';

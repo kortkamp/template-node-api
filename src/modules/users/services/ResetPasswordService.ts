@@ -1,7 +1,7 @@
 import { isAfter, addHours } from 'date-fns';
 import { inject, injectable } from 'tsyringe';
 
-import { IHashProvider } from '@shared/container/HashProvider/models/IHashProvider';
+import { IHashProvider } from '@shared/container/providers/HashProvider/models/IHashProvider';
 import ErrorsApp from '@shared/errors/ErrorsApp';
 
 import { IUsersRepository } from '../repositories/IUsersRepository';

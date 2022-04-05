@@ -1,3 +1,4 @@
+import '@shared/container/providers';
 import ErrorLogsRepository from '@modules/logs/infra/typeorm/repositories/ErrorLogsRepository';
 import MailErrorLogsRepository from '@modules/logs/infra/typeorm/repositories/MailErrorLogsRepository';
 import RawLogsRepository from '@modules/logs/infra/typeorm/repositories/RawLogsRepository';
@@ -12,13 +13,7 @@ import { UsersRepository } from '@modules/users/infra/typeorm/repositories/Users
 import { UserTokensRepository } from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import { IUserTokensRepository } from '@modules/users/repositories/IUserTokensRepository';
-
-import '@shared/container/providers';
-
 import { container } from 'tsyringe';
-
-import { BCryptHashProvider } from './HashProvider/implementations/BCryptHashProvider';
-import { IHashProvider } from './HashProvider/models/IHashProvider';
 
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
@@ -29,8 +24,6 @@ container.registerSingleton<IUserTokensRepository>(
   'UserTokensRepository',
   UserTokensRepository,
 );
-
-container.registerSingleton<IHashProvider>('HashProvider', BCryptHashProvider);
 
 container.registerSingleton<IErrorLogsRepository>(
   'ErrorLogsRepository',

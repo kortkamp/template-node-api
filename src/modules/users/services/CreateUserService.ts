@@ -2,7 +2,7 @@ import { ICreateUserDTO } from '@modules/users/dtos/ICreateUserDTO';
 import path from 'path';
 import { injectable, inject } from 'tsyringe';
 
-import { IHashProvider } from '@shared/container/HashProvider/models/IHashProvider';
+import { IHashProvider } from '@shared/container/providers/HashProvider/models/IHashProvider';
 import { IMailProvider } from '@shared/container/providers/MailProvider/models/IMailProvider';
 import IMailTemplateProvider from '@shared/container/providers/MailTemplateProvider/models/IMailTemplateProvider';
 import ErrorsApp from '@shared/errors/ErrorsApp';
