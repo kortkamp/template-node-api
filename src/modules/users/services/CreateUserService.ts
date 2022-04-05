@@ -1,9 +1,10 @@
-import { SendConfirmationMailService } from '@modules/mails/services/SendConfirmationMailService';
 import { ICreateUserDTO } from '@modules/users/dtos/ICreateUserDTO';
+import path from 'path';
 import { injectable, inject } from 'tsyringe';
 
 import { IHashProvider } from '@shared/container/HashProvider/models/IHashProvider';
 import { IMailProvider } from '@shared/container/providers/MailProvider/models/IMailProvider';
+import IMailTemplateProvider from '@shared/container/providers/MailTemplateProvider/models/IMailTemplateProvider';
 import ErrorsApp from '@shared/errors/ErrorsApp';
 
 import { IUser } from '../models/IUser';
@@ -21,6 +22,9 @@ class CreateUserService {
 
     @inject('MailProvider')
     private mailProvider: IMailProvider,
+
+    @inject('MailTemplateProvider')
+    private mailTemplateProvider: IMailTemplateProvider,
 
     @inject('HashProvider')
     private hashProvider: IHashProvider,
@@ -41,15 +45,28 @@ class CreateUserService {
 
     const userToken = await this.userTokensRepository.generate(user.id);
 
-    const sendConfirmationMail = new SendConfirmationMailService(
-      this.mailProvider,
+    const templateFile = path.resolve(
+      __dirname,
+      '..',
+      'views',
+      'confirm_user.hbs',
     );
 
-    await sendConfirmationMail.execute({
-      email: data.email,
-      user: user.name,
-      token: userToken.token,
+    const link = `${process.env.CONFIRM_USER_URL}${userToken.token}`;
+
+    const templateHTML = await this.mailTemplateProvider.parse({
+      file: templateFile,
+      variables: { name: user.name, link },
     });
+
+    const message = {
+      to: user.email,
+      from: 'Template API <no-reply@template.com>',
+      subject: 'Signup in Template API Confirmation',
+      html: templateHTML,
+    };
+
+    await this.mailProvider.sendMail(message);
 
     return user;
   }

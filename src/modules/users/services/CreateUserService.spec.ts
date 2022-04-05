@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { FakeHashProvider } from '@shared/container/HashProvider/fakes/FakeHashProvider';
 import { FakeMailProvider } from '@shared/container/providers/MailProvider/fake/FakeMailProvider';
 import { IMailProvider } from '@shared/container/providers/MailProvider/models/IMailProvider';
+import FakeMailTemplateProvider from '@shared/container/providers/MailTemplateProvider/fake/FakeMailTemplateProvider';
 import ErrorsApp from '@shared/errors/ErrorsApp';
 
 import { ICreateUserDTO } from '../dtos/ICreateUserDTO';
@@ -16,6 +17,7 @@ let fakeHashProvider: FakeHashProvider;
 let fakeUsersRepository: FakeUsersRepository;
 let fakeMailProvider: IMailProvider;
 let fakeUserTokensRepository: IUserTokensRepository;
+let fakeMailTemplateProvider: FakeMailTemplateProvider;
 
 const userData: ICreateUserDTO = new FakeUser();
 
@@ -25,11 +27,13 @@ describe('CreateUserService', () => {
     fakeHashProvider = new FakeHashProvider();
     fakeMailProvider = new FakeMailProvider();
     fakeUserTokensRepository = new FakeUserTokensRepository();
+    fakeMailTemplateProvider = new FakeMailTemplateProvider();
 
     createUserService = new CreateUserService(
       fakeUsersRepository,
       fakeUserTokensRepository,
       fakeMailProvider,
+      fakeMailTemplateProvider,
       fakeHashProvider,
     );
   });
