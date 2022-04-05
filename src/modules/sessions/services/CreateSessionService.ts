@@ -1,4 +1,5 @@
 import { authConfig } from '@config/auth';
+import { IRolesRepository } from '@modules/roles/repositories/IRolesRepository';
 import { IUser } from '@modules/users/models/IUser';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import { sign } from 'jsonwebtoken';
@@ -19,6 +20,9 @@ class CreateSessionService {
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
 
+    @inject('RolesRepository')
+    private rolesRepository: IRolesRepository,
+
     @inject('HashProvider')
     private hashProvider: IHashProvider,
   ) {}
@@ -31,6 +35,12 @@ class CreateSessionService {
 
     if (!userExists) {
       throw new ErrorsApp('Invalid email/password combination', 403);
+    }
+
+    const role = await this.rolesRepository.findById(userExists.role_id);
+
+    if (!role) {
+      throw new ErrorsApp('Role does not exists', 403);
     }
 
     const checkPasswordMatch = await this.hashProvider.verify(
@@ -46,7 +56,7 @@ class CreateSessionService {
       throw new ErrorsApp('User not active, please contact admin', 403);
     }
 
-    const token = sign({ role: userExists.role_id }, authConfig.jwt.secret, {
+    const token = sign({ role: role.name }, authConfig.jwt.secret, {
       subject: userExists.id,
       expiresIn: authConfig.jwt.expiresIn,
     });
