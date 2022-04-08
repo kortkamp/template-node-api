@@ -1,6 +1,7 @@
-import { CreateMailErrorLogService } from '@modules/logs/services/CreateMailErrorLogService';
 import nodemailer from 'nodemailer';
 import { container } from 'tsyringe';
+
+import { logger } from '@shared/utils/logger';
 
 import { ISendMailDTO } from '../dtos/ISendMailDTO';
 import { IMailProvider } from '../models/IMailProvider';
@@ -30,15 +31,9 @@ class MailTrapMailProvider implements IMailProvider {
 
     transport.sendMail(message, (err, info) => {
       if (err) {
-        if (process.env.NODE_ENV === 'development') {
-          console.log(err);
-        }
-        const createMailErrorService = container.resolve(
-          CreateMailErrorLogService,
-        );
-        createMailErrorService.execute({ error: err, message });
-      } else if (process.env.NODE_ENV === 'development') {
-        console.log(info);
+        logger.error(err);
+      } else {
+        logger.debug(info);
       }
     });
   }

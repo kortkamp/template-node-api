@@ -1,6 +1,6 @@
-import { CreateMailErrorLogService } from '@modules/logs/services/CreateMailErrorLogService';
 import sgMail from '@sendgrid/mail';
-import { container } from 'tsyringe';
+
+import { logger } from '@shared/utils/logger';
 
 import { ISendMailDTO } from '../dtos/ISendMailDTO';
 import { IMailProvider } from '../models/IMailProvider';
@@ -20,19 +20,10 @@ class SendGridMailProvider implements IMailProvider {
     sgMail
       .send(message)
       .then(response => {
-        if (process.env.NODE_ENV === 'development') {
-          console.log(response[0].statusCode);
-          console.log(response[0].headers);
-        }
+        logger.debug(response[0]);
       })
       .catch(error => {
-        if (process.env.NODE_ENV === 'development') {
-          console.log(error);
-        }
-        const createMailErrorService = container.resolve(
-          CreateMailErrorLogService,
-        );
-        createMailErrorService.execute({ error, message });
+        logger.error(error);
       });
   }
 }
