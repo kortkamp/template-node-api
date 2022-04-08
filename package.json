@@ -38,7 +38,8 @@
     "ts-node-dev": "^1.1.8",
     "tsyringe": "^4.6.0",
     "typeorm": "^0.2.45",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "winston": "^3.7.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.6",
@@ -57,6 +58,7 @@
     "@types/nodemailer": "^6.4.4",
     "@types/redis": "^2.8.32",
     "@types/uuid": "^8.3.4",
+    "@types/winston": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.15.0",
     "babel-plugin-module-resolver": "^4.1.0",
