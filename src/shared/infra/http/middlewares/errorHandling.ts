@@ -4,6 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 import { container } from 'tsyringe';
 
 import ErrorsApp from '@shared/errors/ErrorsApp';
+import { logger } from '@shared/utils/logger';
 
 const errorHandling = async (
   err: Error | any,
@@ -11,14 +12,9 @@ const errorHandling = async (
   response: Response,
   next: NextFunction,
 ): Promise<Response | void> => {
-  if (process.env.NODE_ENV === 'development') {
-    console.log(err);
-  }
-  const createLog = container.resolve(CreateErrorLogService);
-
   delete request.body?.password;
 
-  await createLog.execute({
+  const data = {
     route: request.originalUrl,
     userId: request.user?.id,
     requestMethod: request.method,
@@ -30,18 +26,22 @@ const errorHandling = async (
       message: err.message || '',
       error: err,
     },
-  });
+  };
 
   if (err instanceof ErrorsApp) {
+    logger.warn(data);
     return response
       .status(err.statusCode)
       .json({ success: false, message: err.message });
   }
 
   if (isCelebrateError(err)) {
+    logger.warn(data);
     errors()(err, request, response, next);
     return response;
   }
+
+  logger.error(data);
 
   return response.status(500).json({
     success: false,
