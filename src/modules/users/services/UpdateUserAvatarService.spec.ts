@@ -27,10 +27,10 @@ describe('UpdateUserAvatar', () => {
 
     const updateAvatarResult = await updateUserAvatar.execute({
       user_id: user.id,
-      tmpFileName: '/somePath/avatar.jpg',
+      tmpFileName: 'avatar.jpg',
     });
 
-    expect(updateAvatarResult).toEqual(`${user.id}.jpg`);
+    expect(updateAvatarResult).toEqual(`avatar.jpg`);
   });
 
   it('Should delete old avatar before add new', async () => {
@@ -40,26 +40,26 @@ describe('UpdateUserAvatar', () => {
 
     await updateUserAvatar.execute({
       user_id: user.id,
-      tmpFileName: '/somePath/avatar.jpg',
+      tmpFileName: 'avatar.jpg',
     });
 
     const updateAvatarResult = await updateUserAvatar.execute({
       user_id: user.id,
-      tmpFileName: '/somePath/newAvatar.jpg',
+      tmpFileName: 'newAvatar.jpg',
     });
 
     expect(deleteFile).toHaveBeenCalledWith({
-      file: `${user.id}.jpg`,
+      file: 'avatar.jpg',
       type: 'avatar',
     });
-    expect(updateAvatarResult).toEqual(`${user.id}.jpg`);
+    expect(updateAvatarResult).toEqual('newAvatar.jpg');
   });
 
   it('Should not allow to update avatar for invalid users', async () => {
     await expect(
       updateUserAvatar.execute({
         user_id: 'Non Existent User',
-        tmpFileName: '/somePath/avatar.jpg',
+        tmpFileName: 'avatar.jpg',
       }),
     ).rejects.toBeInstanceOf(ErrorsApp);
   });

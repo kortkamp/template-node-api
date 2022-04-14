@@ -18,11 +18,7 @@ class S3StorageProvider implements IStorageProvider {
     });
   }
 
-  public async saveFile({
-    tmpFile,
-    fileName,
-    type,
-  }: ISaveFileDTO): Promise<string> {
+  public async saveFile({ tmpFile, type }: ISaveFileDTO): Promise<string> {
     const upConfig = uploadConfig(type);
     const originalPath = resolve(upConfig.tmpFolder, tmpFile);
 
@@ -39,7 +35,7 @@ class S3StorageProvider implements IStorageProvider {
     await this.client
       .putObject({
         Bucket: bucket,
-        Key: fileName,
+        Key: tmpFile,
         ACL: 'public-read',
         Body: fileContent,
         ContentType: contentType,

@@ -9,13 +9,13 @@ class FakeStorageProvider implements IStorageProvider {
   public async saveFile(data: ISaveFileDTO): Promise<string> {
     this.storage.push(data);
 
-    return data.fileName;
+    return data.tmpFile;
   }
 
   public async deleteFile({ file, type }: IDeleteFileDTO): Promise<void> {
     const findIndex = this.storage.findIndex(
       storageFileData =>
-        storageFileData.fileName === file && storageFileData.type === type,
+        storageFileData.tmpFile === file && storageFileData.type === type,
     );
 
     this.storage.splice(findIndex, 1);

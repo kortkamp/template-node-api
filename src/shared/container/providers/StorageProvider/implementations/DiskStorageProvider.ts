@@ -8,19 +8,15 @@ import { IDeleteFileDTO } from '../dtos/IDeleteFileDTO';
 import { ISaveFileDTO } from '../dtos/ISaveFileDTO';
 
 class DiskStorageProvider implements IStorageProvider {
-  public async saveFile({
-    tmpFile,
-    fileName,
-    type,
-  }: ISaveFileDTO): Promise<string> {
+  public async saveFile({ tmpFile, type }: ISaveFileDTO): Promise<string> {
     const upConfig = uploadConfig(type);
 
     await fs.promises.rename(
       resolve(upConfig.tmpFolder, tmpFile),
-      resolve(upConfig.uploadsFolder, fileName),
+      resolve(upConfig.uploadsFolder, tmpFile),
     );
 
-    return fileName;
+    return tmpFile;
   }
 
   public async deleteFile({ file, type }: IDeleteFileDTO): Promise<void> {

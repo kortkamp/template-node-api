@@ -30,12 +30,8 @@ class UpdateUserAvatarService {
       });
     }
 
-    const fileExtension = tmpFileName.split('.').slice(-1);
-    const fileName = `${user_id}.${fileExtension}`;
-
     const filename = await this.storageProvider.saveFile({
       tmpFile: tmpFileName,
-      fileName,
       type: 'avatar',
     });
 
