@@ -42,7 +42,7 @@ export default function upload(type: string): IUploadReturn {
 
     default:
       uploadsFolder = resolve(__dirname, '..', '..', 'tmp', 'uploads');
-      bucket = 'img-template-api';
+      bucket = process.env.AWS_S3_BUCKET;
   }
 
   return {
