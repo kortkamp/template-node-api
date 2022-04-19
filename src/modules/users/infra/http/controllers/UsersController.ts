@@ -15,7 +15,7 @@ class UsersController {
 
     const users = await listUsers.execute(parseQueryFilters(request.query));
 
-    return response.json(instanceToInstance(users));
+    return response.json({ success: true, ...instanceToInstance(users) });
   }
 
   public async show(request: Request, response: Response): Promise<Response> {

@@ -13,7 +13,7 @@ class RolesController {
 
     const roles = await listRolesService.execute();
 
-    return response.json(instanceToInstance(roles));
+    return response.json({ success: true, roles: instanceToInstance(roles) });
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
@@ -21,7 +21,9 @@ class RolesController {
 
     const role = await createRoleService.execute(request.body);
 
-    return response.status(201).json(instanceToInstance(role));
+    return response
+      .status(201)
+      .json({ success: true, role: instanceToInstance(role) });
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
