@@ -1,7 +1,5 @@
-import { CreateErrorLogService } from '@modules/logs/services/CreateErrorLogService';
 import { isCelebrateError, errors } from 'celebrate';
 import { Request, Response, NextFunction } from 'express';
-import { container } from 'tsyringe';
 
 import ErrorsApp from '@shared/errors/ErrorsApp';
 import { logger } from '@shared/utils/logger';
