@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import FakeUserTokensRepository from '@modules/users/repositories/fakes/FakeUserTokensRepository';
 import { ResetPasswordService } from '@modules/users/services/ResetPasswordService';
 
-import { FakeHashProvider } from '@shared/container/HashProvider/fakes/FakeHashProvider';
+import { FakeHashProvider } from '@shared/container/providers/HashProvider/fakes/FakeHashProvider';
 import ErrorsApp from '@shared/errors/ErrorsApp';
 
 import { FakeUser } from '../models/fakes/FakeUser';
