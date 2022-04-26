@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { FakeHashProvider } from '@shared/container/HashProvider/fakes/FakeHashProvider';
+import { FakeHashProvider } from '@shared/container/providers/HashProvider/fakes/FakeHashProvider';
 import { FakeMailProvider } from '@shared/container/providers/MailProvider/fake/FakeMailProvider';
 import { IMailProvider } from '@shared/container/providers/MailProvider/models/IMailProvider';
 import FakeMailTemplateProvider from '@shared/container/providers/MailTemplateProvider/fake/FakeMailTemplateProvider';

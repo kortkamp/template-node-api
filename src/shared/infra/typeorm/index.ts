@@ -1,6 +1,13 @@
-import { Connection, createConnection, getConnectionOptions } from 'typeorm';
+import {
+  Connection,
+  createConnection,
+  getConnectionOptions,
+  getConnectionManager,
+} from 'typeorm';
 
-export default async (
+import { logger } from '@shared/utils/logger';
+
+const databaseConnect = async (
   host = process.env.POSTGRES_DB_HOST,
 ): Promise<Connection> => {
   const defaultOptions = await getConnectionOptions();
@@ -14,5 +21,14 @@ export default async (
           : defaultOptions.database,
     }),
   );
+  logger.debug(`Database connected`);
   return connection;
 };
+
+const databaseDisconnect = async () => {
+  const conn = getConnectionManager().get();
+  await conn.close();
+  logger.debug(`DB connection closed`);
+};
+
+export { databaseConnect, databaseDisconnect };

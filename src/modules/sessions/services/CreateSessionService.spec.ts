@@ -5,7 +5,7 @@ import FakeRolesRepository from '@modules/roles/repositories/fakes/FakeRolesRepo
 import { FakeUser } from '@modules/users/models/fakes/FakeUser';
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUserRepository';
 
-import { FakeHashProvider } from '@shared/container/HashProvider/fakes/FakeHashProvider';
+import { FakeHashProvider } from '@shared/container/providers/HashProvider/fakes/FakeHashProvider';
 import ErrorsApp from '@shared/errors/ErrorsApp';
 
 import { CreateSessionService } from './CreateSessionService';

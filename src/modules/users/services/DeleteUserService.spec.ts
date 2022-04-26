@@ -72,7 +72,7 @@ describe('DeleteUser', () => {
     });
 
     expect(deleteFile).toBeCalledWith({
-      file: `${user.id}.jpg`,
+      file: '/some_path/avatar.jpg',
       type: 'avatar',
     });
   });
