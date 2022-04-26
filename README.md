@@ -6,7 +6,8 @@
 * Persistence with PostgreSQL;
 * Storage provider;
 * Mail provider;
-* Logs system;
+* Logger;
+* Graceful shutdown;
 * Connections rate limiter middleware for DDoS protection;
 * Dynamic role-permissions system;
 * Decent unit tests coverage;

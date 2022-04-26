@@ -7,9 +7,6 @@ import 'express-async-errors';
 import { createServer } from 'http';
 import { serve, setup } from 'swagger-ui-express';
 
-import databaseConnection from '@shared/infra/typeorm';
-import { logger } from '@shared/utils/logger';
-
 import swaggerConfig from '../../../docs';
 import errorHandling from './middlewares/errorHandling';
 import { morganMiddleware } from './middlewares/morganMiddleware';
@@ -19,11 +16,6 @@ import '@shared/container';
 
 const app = express();
 const server = createServer(app);
-
-databaseConnection().then(() => {
-  logger.info(`Database started 💽`);
-  server.emit('database-ready');
-});
 
 app.use(morganMiddleware);
 
@@ -44,5 +36,9 @@ app.use(errorHandling);
 app.get('/', (req, res) => {
   return res.send('Template API Node - 2022');
 });
+
+// setTimeout(() => {
+//   throw new Error('timeout error');
+// }, 4000);
 
 export { server };
