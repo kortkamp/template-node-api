@@ -11,8 +11,16 @@ export const roleResultSchema = {
 };
 
 export const roleResultAllSchema = {
-  type: 'array',
-  items: {
-    $ref: '#/schemas/role',
+  type: 'object',
+  properties: {
+    success: {
+      type: 'boolean',
+    },
+    roles: {
+      type: 'array',
+      items: {
+        $ref: '#/schemas/role',
+      },
+    },
   },
 };
