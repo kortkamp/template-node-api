@@ -11,7 +11,7 @@ class ShowRoleService {
     private rolesRepository: IRolesRepository,
   ) {}
   public async execute(roleId: string) {
-    const role = await this.rolesRepository.findById(roleId, ['permissions']);
+    const role = await this.rolesRepository.findById(roleId);
     if (!role) {
       throw new ErrorsApp('Role does not exists', 404);
     }
