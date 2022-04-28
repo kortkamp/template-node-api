@@ -6,6 +6,10 @@ import {
   userParamsSchema,
   userResultSchema,
   userResultAllSchema,
+  roleSchema,
+  roleParamsSchema,
+  roleResultSchema,
+  roleResultAllSchema,
 } from './schemas/';
 
 export default {
@@ -16,4 +20,8 @@ export default {
   userParams: userParamsSchema,
   userResult: userResultSchema,
   userResultAll: userResultAllSchema,
+  role: roleSchema,
+  roleParams: roleParamsSchema,
+  roleResult: roleResultSchema,
+  roleResultAll: roleResultAllSchema,
 };

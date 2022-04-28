@@ -23,6 +23,10 @@ export default {
       name: 'Users',
       description: 'Users related module',
     },
+    {
+      name: 'Roles',
+      description: 'Roles related module',
+    },
   ],
   paths,
   schemas,
