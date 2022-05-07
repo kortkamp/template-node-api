@@ -41,6 +41,7 @@
     "ts-node-dev": "^1.1.8",
     "tsyringe": "^4.6.0",
     "typeorm": "^0.2.45",
+    "typeorm-dynamic-filters": "^0.0.1",
     "uuid": "^8.3.2",
     "winston": "^3.7.2"
   },

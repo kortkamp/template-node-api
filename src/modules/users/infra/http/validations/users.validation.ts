@@ -1,4 +1,5 @@
 import { celebrate, Joi, Segments } from 'celebrate';
+import { listWithFilterSchema } from 'typeorm-dynamic-filters';
 
 export const createUserValidate = celebrate(
   {
@@ -47,4 +48,8 @@ export const updateUserValidate = celebrate({
     old_password: Joi.string(),
     password: Joi.string(),
   }).and('password', 'old_password'),
+});
+
+export const listUserValidate = celebrate({
+  [Segments.QUERY]: listWithFilterSchema,
 });

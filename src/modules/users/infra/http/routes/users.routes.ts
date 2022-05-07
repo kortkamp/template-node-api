@@ -5,13 +5,13 @@ import { authMiddleware } from '@modules/sessions/infra/http/middlewares/authMid
 import { Router } from 'express';
 import multer from 'multer';
 
-import { filtersQueryValidate } from '@shared/helpers/filter/validations/filter.validation';
 import { paramsIdValidate } from '@shared/infra/http/validations/default.validation';
 
 import { UserAvatarController } from '../controllers/UserAvatarController';
 import { UsersController } from '../controllers/UsersController';
 import {
   createUserValidate,
+  listUserValidate,
   updateUserValidate,
 } from '../validations/users.validation';
 
@@ -53,7 +53,7 @@ usersRoutes.get(
 usersRoutes.get(
   '/',
   ensureRoles(['admin']),
-  filtersQueryValidate,
+  listUserValidate,
   usersController.index,
 );
 

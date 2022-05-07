@@ -1,10 +1,7 @@
 import { ICreateUserDTO } from '@modules/users/dtos/ICreateUserDTO';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import { getRepository, Repository } from 'typeorm';
-
-import FilterBuilder, {
-  IFilterQuery,
-} from '@shared/helpers/filter/typeorm/FilterBuilder';
+import { FilterBuilder, IFilterQuery } from 'typeorm-dynamic-filters';
 
 import { User } from '../models/User';
 
@@ -30,13 +27,9 @@ class UsersRepository implements IUsersRepository {
   }
 
   public async getAll(query: IFilterQuery): Promise<[User[], number]> {
-    const filterQueryBuilder = new FilterBuilder(
-      this.ormRepository,
-      query,
-      'user',
-    );
+    const filterQueryBuilder = new FilterBuilder(this.ormRepository, 'user');
 
-    const queryBuilder = filterQueryBuilder.build();
+    const queryBuilder = filterQueryBuilder.build(query);
 
     const result = await queryBuilder.getManyAndCount();
 
