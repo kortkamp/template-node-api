@@ -42,7 +42,7 @@ docker-compose up
 
 ## :book: Docs
 
-The API provides Swagger docs at http://localhost:3003/api-docs/#/ in case you already have the project running in your computer. In case you do not want to run the project, just got to [docs](https://github.com/kortkamp/template-node-api/blob/main/src/docs/swagger.json).
+The API provides Swagger docs at http://localhost:3003/api-docs/#/ in case you already have the project running in your computer. In case you do not want to run the project, just got to [docs](https://kortkamp.github.io/swagger-viewer/?host=https%3A%2F%2Fraw.githubusercontent.com%2Fkortkamp%2Ftemplate-node-api%2Fmain%2Fsrc%2Fdocs%2Fswagger.json).
 
 Do not edit swagger.json file directly, instead edit the files inside ./src/docs to update you project documentations, then if you need a unique file for static serving purposes generate a new one by running the command below.
 
