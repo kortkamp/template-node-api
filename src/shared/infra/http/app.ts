@@ -10,7 +10,7 @@ import { serve, setup } from 'swagger-ui-express';
 import swaggerConfig from '../../../docs';
 import errorHandling from './middlewares/errorHandling';
 import { morganMiddleware } from './middlewares/morganMiddleware';
-import rateLimiter from './middlewares/rateLimiter';
+// import rateLimiter from './middlewares/rateLimiter';
 import { routes } from './routes';
 import '@shared/container';
 
@@ -19,7 +19,7 @@ const server = createServer(app);
 
 app.use(morganMiddleware);
 
-app.use(rateLimiter);
+// app.use(rateLimiter);
 app.use(cors());
 app.use(express.json());
 
