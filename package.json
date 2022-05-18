@@ -12,6 +12,7 @@
     "docs:build": "ts-node-dev -r tsconfig-paths/register ./src/docs/build.ts",
     "perf": "ts-node-dev -r tsconfig-paths/register ./src/shared/infra/typeorm/tests/users/createUser.performance.ts"
   },
+  "heroku-run-build-script": true,
   "repository": "https://github.com/kortkamp/template-node-api.git",
   "author": "kortkamp <marcelusmedius@gmail.com>",
   "license": "MIT",
