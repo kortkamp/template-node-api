@@ -1,6 +1,8 @@
 import { ICreateRoleDTO } from '@modules/roles/dtos/ICreateRoleDTO';
 import { IRolesRepository } from '@modules/roles/repositories/IRolesRepository';
-import { getRepository, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
+
+import { AppDataSource } from '@shared/infra/typeorm';
 
 import { Role } from '../models/Role';
 
@@ -8,7 +10,7 @@ class RolesRepository implements IRolesRepository {
   private ormRepository: Repository<Role>;
 
   constructor() {
-    this.ormRepository = getRepository<Role>(Role);
+    this.ormRepository = AppDataSource.getRepository<Role>(Role);
   }
 
   public async getTotal(): Promise<number> {

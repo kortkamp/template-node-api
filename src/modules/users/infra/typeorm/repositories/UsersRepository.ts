@@ -1,7 +1,9 @@
 import { ICreateUserDTO } from '@modules/users/dtos/ICreateUserDTO';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
-import { getRepository, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { FilterBuilder, IFilterQuery } from 'typeorm-dynamic-filters';
+
+import { AppDataSource } from '@shared/infra/typeorm';
 
 import { User } from '../models/User';
 
@@ -9,7 +11,7 @@ class UsersRepository implements IUsersRepository {
   private ormRepository: Repository<User>;
 
   constructor() {
-    this.ormRepository = getRepository<User>(User);
+    this.ormRepository = AppDataSource.getRepository<User>(User);
   }
 
   public async getTotal(): Promise<number> {

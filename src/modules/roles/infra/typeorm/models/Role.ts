@@ -3,14 +3,10 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-
-import { RolePermission } from './RolePermission';
 
 @Entity('roles')
 class Role implements IRole {
@@ -19,10 +15,6 @@ class Role implements IRole {
 
   @Column()
   name: string;
-
-  @OneToMany(type => RolePermission, rolePermission => rolePermission.role)
-  @JoinColumn({ name: 'id' })
-  permissions: RolePermission[];
 
   @CreateDateColumn()
   created_at: Date;

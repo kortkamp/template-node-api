@@ -40,8 +40,8 @@
     "swagger-ui-express": "^4.3.0",
     "ts-node-dev": "^1.1.8",
     "tsyringe": "^4.6.0",
-    "typeorm": "^0.2.45",
-    "typeorm-dynamic-filters": "^0.0.1",
+    "typeorm": "^0.3.6",
+    "typeorm-dynamic-filters": "kortkamp/typeorm-dynamic-filters#pre-0.3",
     "uuid": "^8.3.2",
     "winston": "^3.7.2"
   },
@@ -63,7 +63,6 @@
     "@types/nodemailer": "^6.4.4",
     "@types/redis": "^2.8.32",
     "@types/uuid": "^8.3.4",
-    "@types/winston": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.15.0",
     "babel-plugin-module-resolver": "^4.1.0",
