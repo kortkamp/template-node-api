@@ -1,4 +1,4 @@
-import { databaseConnect, databaseDisconnect } from '@shared/infra/typeorm';
+import { AppDataSource } from '@shared/infra/typeorm';
 import { logger } from '@shared/utils/logger';
 
 import { server } from './app';
@@ -10,13 +10,16 @@ enum ExitStatus {
   Success = 0,
 }
 
-const shutdown = () => {
+const shutdown = async () => {
   try {
     // close server app
     server.close(async () => {
       // when all requests are resolved
       logger.debug('HTTP server closed');
-      await databaseDisconnect();
+      // if (await AppDataSource.isInitialized()) {
+      // await AppDataSource.destroy();
+      logger.debug(`DB connection closed`);
+      // }
       logger.info('App exited with success');
       process.exit(ExitStatus.Success);
     });
@@ -35,9 +38,9 @@ exitSignals.map(sig =>
   }),
 );
 
-(async () => {
-  await databaseConnect();
+AppDataSource.initialize().then(async () => {
+  logger.debug(`Database connected`);
   server.listen(port, () => {
     logger.info(`Api started on localhost:${port}! 🚀`);
   });
-})();
+});

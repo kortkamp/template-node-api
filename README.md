@@ -7,6 +7,7 @@
 * Basic users module with email activation, avatar, jwt authorization middleware;
 * Persistence with PostgreSQL;
 * Storage provider;
+* Typeorm 0.3 compatible;
 * Mail provider;
 * Logger;
 * Graceful shutdown;

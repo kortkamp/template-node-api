@@ -1,34 +1,25 @@
-import {
-  Connection,
-  createConnection,
-  getConnectionOptions,
-  getConnectionManager,
-} from 'typeorm';
+import { Role } from '@modules/roles/infra/typeorm/models/Role';
+import { User } from '@modules/users/infra/typeorm/models/User';
+import { DataSource, DataSourceOptions } from 'typeorm';
+import 'dotenv/config';
+import 'reflect-metadata';
 
-import { logger } from '@shared/utils/logger';
-
-const databaseConnect = async (
-  host = process.env.POSTGRES_DB_HOST,
-): Promise<Connection> => {
-  const defaultOptions = await getConnectionOptions();
-
-  const connection = await createConnection(
-    Object.assign(defaultOptions, {
-      host: process.env.NODE_ENV === 'test' ? 'localhost' : host,
-      database:
-        process.env.NODE_ENV === 'test'
-          ? 'template_test'
-          : defaultOptions.database,
-    }),
-  );
-  logger.debug(`Database connected`);
-  return connection;
+const dataSourceOptions: DataSourceOptions = {
+  name: process.env.POSTGRES_DB_NAME,
+  type: 'postgres',
+  host:
+    process.env.NODE_ENV === 'test'
+      ? 'localhost'
+      : process.env.POSTGRES_DB_HOST,
+  port: Number(process.env.POSTGRES_DB_PORT || '5432'),
+  username: process.env.POSTGRES_DB_USERNAME,
+  password: process.env.POSTGRES_DB_PASSWORD,
+  database:
+    process.env.NODE_ENV === 'test'
+      ? 'template_test'
+      : process.env.POSTGRES_DB_DATABASE,
+  entities: [User, Role],
+  migrations: [`./dist/src/shared/infra/typeorm/migrations/*.js`],
 };
 
-const databaseDisconnect = async () => {
-  const conn = getConnectionManager().get();
-  await conn.close();
-  logger.debug(`DB connection closed`);
-};
-
-export { databaseConnect, databaseDisconnect };
+export const AppDataSource = new DataSource(dataSourceOptions);
