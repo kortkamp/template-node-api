@@ -3,7 +3,7 @@ import { logger } from '@shared/utils/logger';
 
 import { server } from './app';
 
-const port = process.env.APP_PORT;
+const port = process.env.PORT;
 
 enum ExitStatus {
   Failure = 1,
