@@ -13,7 +13,7 @@ async function create() {
   const usersRepository = new UsersRepository();
 
   const roleData: ICreateRoleDTO = {
-    name: 'super-admin',
+    name: 'admin',
   };
 
   const adminRole = await rolesRepository.create(roleData);
