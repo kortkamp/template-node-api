@@ -1,5 +1,3 @@
-import { User } from '@modules/users/infra/typeorm/models/User';
-
 import { AppDataSource } from '@shared/infra/typeorm';
 import { logger } from '@shared/utils/logger';
 
@@ -43,11 +41,9 @@ exitSignals.map(sig =>
 AppDataSource.initialize()
   .then(async () => {
     logger.debug(`Database connected`);
-    console.log(AppDataSource.isInitialized);
-    console.log(AppDataSource.options);
-    // server.listen(port, () => {
-    //   logger.info(`Api started on localhost:${port}! 🚀`);
-    // });
+    server.listen(port, () => {
+      logger.info(`Api started on localhost:${port}! 🚀`);
+    });
   })
   .catch(err => {
     logger.error(
