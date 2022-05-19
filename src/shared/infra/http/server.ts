@@ -38,9 +38,16 @@ exitSignals.map(sig =>
   }),
 );
 
-AppDataSource.initialize().then(async () => {
-  logger.debug(`Database connected`);
-  server.listen(port, () => {
-    logger.info(`Api started on localhost:${port}! 🚀`);
+AppDataSource.initialize()
+  .then(async () => {
+    logger.debug(`Database connected`);
+    server.listen(port, () => {
+      logger.info(`Api started on localhost:${port}! 🚀`);
+    });
+  })
+  .catch(err => {
+    logger.error(
+      `Couldn't connect to database: ${process.env.POSTGRES_DB_HOST}`,
+    );
+    logger.error(err);
   });
-});
