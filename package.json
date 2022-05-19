@@ -9,6 +9,7 @@
     "build": "yarn babel src --extensions \".js,.ts\" --out-dir dist/src --copy-files --no-copy-ignored",
     "test": "jest",
     "seed:admin": "ts-node-dev -r tsconfig-paths/register ./src/shared/infra/typeorm/seed/admin.ts",
+    "seed:admin.prod":"node ./dist/src/shared/infra/typeorm/seed/admin.js",
     "docs:build": "ts-node-dev -r tsconfig-paths/register ./src/docs/build.ts",
     "perf": "ts-node-dev -r tsconfig-paths/register ./src/shared/infra/typeorm/tests/users/createUser.performance.ts"
   },

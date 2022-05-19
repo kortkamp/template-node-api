@@ -3,19 +3,12 @@ import { RolesRepository } from '@modules/roles/infra/typeorm/repositories/Roles
 import { ICreateUserDTO } from '@modules/users/dtos/ICreateUserDTO';
 import { UsersRepository } from '@modules/users/infra/typeorm/repositories/UsersRepository';
 import { hash } from 'bcryptjs';
+
 import 'dotenv/config';
-import { createConnection, getConnectionOptions } from 'typeorm';
+import { AppDataSource } from '..';
 
 async function create() {
-  const defaultOptions = await getConnectionOptions();
-  const connection = await createConnection(
-    Object.assign(defaultOptions, {
-      host:
-        process.env.ENVIRONMENT === 'local'
-          ? 'localhost'
-          : process.env.POSTGRES_DB_HOST,
-    }),
-  );
+  await AppDataSource.initialize();
   const rolesRepository = new RolesRepository();
   const usersRepository = new UsersRepository();
 
@@ -34,7 +27,7 @@ async function create() {
   };
 
   await usersRepository.create(admin);
-  await connection.close();
+  await AppDataSource.destroy();
 }
 
 create().then(() => console.log('User admin Created!'));
