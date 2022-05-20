@@ -17,14 +17,12 @@ class SendGridMailProvider implements IMailProvider {
       html,
     };
 
-    sgMail
-      .send(message)
-      .then(response => {
-        logger.debug(response[0]);
-      })
-      .catch(error => {
-        logger.error(error);
-      });
+    try {
+      const info = await sgMail.send(message);
+      logger.debug(info);
+    } catch (err) {
+      logger.error('Sendgrid', err);
+    }
   }
 }
 

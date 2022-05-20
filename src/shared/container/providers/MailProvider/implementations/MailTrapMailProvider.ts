@@ -29,13 +29,12 @@ class MailTrapMailProvider implements IMailProvider {
       html,
     };
 
-    transport.sendMail(message, (err, info) => {
-      if (err) {
-        logger.error(err);
-      } else {
-        logger.debug(info);
-      }
-    });
+    try {
+      const info = await transport.sendMail(message);
+      logger.debug(info);
+    } catch (err) {
+      logger.error('Mailtrap', err);
+    }
   }
 }
 

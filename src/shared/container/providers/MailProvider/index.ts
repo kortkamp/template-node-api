@@ -11,5 +11,5 @@ const mailProvider = {
 
 container.registerSingleton<IMailProvider>(
   'MailProvider',
-  mailProvider[process.env.MAIL_PROVIDER],
+  mailProvider[process.env.MAIL_PROVIDER] || mailProvider.MailTrap,
 );
