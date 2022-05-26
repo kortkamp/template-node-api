@@ -4,7 +4,7 @@ RUN apk update && apk add bash
 
 WORKDIR /usr/app
 
-ENV NODE_ENV=development
+ENV ENVIRONMENT=local
 
 COPY package.json ./
 COPY . .

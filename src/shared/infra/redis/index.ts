@@ -1,7 +1,8 @@
 import redis from 'redis';
 
 const redisClient = redis.createClient({
-  host: process.env.NODE_ENV === 'test' ? 'localhost' : process.env.REDIS_HOST,
+  host:
+    process.env.ENVIRONMENT === 'test' ? 'localhost' : process.env.REDIS_HOST,
   port: Number(process.env.REDIS_PORT),
 });
 

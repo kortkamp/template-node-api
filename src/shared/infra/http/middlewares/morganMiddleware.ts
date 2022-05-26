@@ -8,14 +8,14 @@ const stream = {
     logger.http(message.replace(/(\r\n|\n|\r)/gm, '')),
 };
 
-const skip = () => {
-  const env = process.env.NODE_ENV || 'development';
-  return env !== 'development';
-};
+// const skip = () => {
+//   const env = process.env.ENVIRONMENT || 'dev';
+//   return env !== 'dev';
+// };
 
 const morganMiddleware = morgan(
   ':remote-addr :method :url :status :res[content-length] - :response-time ms',
-  { stream, skip },
+  { stream },
 );
 
 export { morganMiddleware };
