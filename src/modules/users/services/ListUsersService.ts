@@ -1,7 +1,7 @@
 import { injectable, inject } from 'tsyringe';
+import { IFilterQuery } from 'typeorm-dynamic-filters';
 
 import { IListResultInterface } from '@shared/dtos/IListResultDTO';
-import { IFilterQuery } from '@shared/helpers/filter/typeorm/FilterBuilder';
 
 import { IUsersRepository } from '../repositories/IUsersRepository';
 

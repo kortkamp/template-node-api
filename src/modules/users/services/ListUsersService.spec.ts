@@ -1,6 +1,6 @@
-import { parseQueryFilters } from '@shared/helpers/filter/parsers/parseQueryFilters';
-
 import 'reflect-metadata';
+import { parseQueryFilters } from 'typeorm-dynamic-filters';
+
 import { FakeUser } from '../models/fakes/FakeUser';
 import FakeUsersRepository from '../repositories/fakes/FakeUserRepository';
 import { ListUsersService } from './ListUsersService';
