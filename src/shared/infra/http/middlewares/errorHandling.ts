@@ -34,7 +34,7 @@ const errorHandling = async (
   }
 
   if (isCelebrateError(err)) {
-    logger.warn(data);
+    logger.warn({ ...data, details: err.details });
     errors()(err, request, response, next);
     return response;
   }
